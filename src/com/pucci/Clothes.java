@@ -77,7 +77,7 @@ public abstract class Clothes {
 	 */
 	@Override
 	public String toString() {
-		return type + "," + name + "," + "$" + price + "," + inventory;
+		return name + "," + "$" + price + "," + inventory;
 	}
 	
 	

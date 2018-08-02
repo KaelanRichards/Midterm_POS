@@ -3,45 +3,65 @@
  */
 package com.pucci;
 
+import java.util.ArrayList;
+
 /**
  * @author Joseph Bojovic Jr.
  *
  */
 
-
 public class Tops extends Clothes {
-
-		
-	public Tops(String gender, String name, String type, String price, String inventory) {
-		super(gender, name, type, price, inventory);
-		// TODO Auto-generated constructor stub
-	}
-
-
 
 	private String size;
 
-	
-	
-	public void printTops() {
-		FileMethods.readFromFile("Products.txt");
-		
+	public Tops(String gender, String name, String type, String price, String inventory) {
+		super(gender, name, type, price, inventory);
+		name.equals(getName());
 	}
-	
-	
 
+	public static void printMenTops() {
 
-	
-	
-	
+		ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> mTopList = new ArrayList<>();
+		mTopList.add(menu.get(0));
+		mTopList.add(menu.get(1));
+		mTopList.add(menu.get(2));
+		mTopList.add(menu.get(3));
+		mTopList.add(menu.get(4));
 
-	
-	
+		int m = 1;
+		for (Clothes c : mTopList) {
 
+			System.out.println(m + ". " + c);
+			m++;
+		}
+	}
 
-	
+	public static void printWomenTops() {
 
-	
-	
-	
+		ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> wTopList = new ArrayList<>();
+		wTopList.add(menu.get(9));
+		wTopList.add(menu.get(10));
+		wTopList.add(menu.get(11));
+		
+
+		int i = 1;
+		for (Clothes c : wTopList) {
+
+			System.out.println(i + ". " + c);
+			i++;
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+
+//	@Override
+//	public String toString(String name, String price, ) {
+//		return name.equals(getName());// + "," + "$" + this.price = price;
 }
