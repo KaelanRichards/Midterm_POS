@@ -12,17 +12,17 @@ public abstract class Clothes {
 	private String type; //Tops Bottoms Shoes
 	private double price;
 	private int inventory; //Available product amount 
-	private String size;
 	
 	
 	
-	public Clothes(String name, String type, double price, int inventory, String size) {
+	
+	public Clothes(String name, String type, double price, int inventory) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.price = price;
 		this.inventory = inventory;
-		this.size = size;
+		
 	}
 	/**
 	 * @return the name
@@ -72,24 +72,12 @@ public abstract class Clothes {
 	public void setInventory(int inventory) {
 		this.inventory = inventory;
 	}
-	/**
-	 * @return the size
-	 */
-	public String getSize() {
-		return size;
-	}
-	/**
-	 * @param size the size to set
-	 */
-	public void setSize(String size) {
-		this.size = size;
-	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return type + "," + size + "," + name + "," + "$" + price + "," + inventory;
+		return type + "," + name + "," + "$" + price + "," + inventory;
 	}
 	
 	
