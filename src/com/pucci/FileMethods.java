@@ -20,7 +20,7 @@ public class FileMethods {
 	public static ArrayList<Clothes> readFromFile(String fileName) {
 		// Making some updates to test for github push stuff
 		ArrayList<Clothes> productList = new ArrayList<>(); 
-		
+		// one more test
 		Path filePath = Paths.get(fileName);
 		File file = filePath.toFile();
 
