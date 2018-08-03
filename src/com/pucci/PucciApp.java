@@ -8,8 +8,9 @@ public class PucciApp {
 		Scanner scan = new Scanner(System.in);
 		
 		// All variable declarations
-		int userInput;
-		
+		int menuChoice;
+		int userProductChoice = 0;
+		String cont = "y";
 		
 		
 		// TODO Welcome User to Pucci and give instruction
@@ -29,7 +30,28 @@ public class PucciApp {
 		
 		// TODO Get input from user  ---  read product text file ---- return list
 		
-		userInput = Validator.getInt(scan, "Please select the number of which category you would like", 1 , 7);
+		menuChoice = Validator.getInt(scan, "Please select the number of which category you would like", 1 , 7);
+//		Tops.printMenTops();
+//		Shoes.printMenShoes();
+		
+		getMenuChoice(menuChoice);
+		
+		do {
+			userProductChoice = Validator.getInt(scan, "Please select the number to add product to your shopping cart or 0 to return to main menu");
+			
+			for (int i = 0; i < 6 ; i++) {
+				if((i+1) == userProductChoice) {
+					
+					ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
+				}
+			}
+			cont = Validator.getString(scan, "Would you like to continue shopping");
+		}while(cont.equalsIgnoreCase("y"));
+		//System.out.println(ShoppingCart.viewCart());
+		
+	
+		
+		ShoppingCart.viewCart();
 		
 		
 		
@@ -60,6 +82,33 @@ public class PucciApp {
 //		Clothes test = new Tops("Button Down", "Shirt", 240.00, 2, "Medium");
 //		System.out.println(test);
 		
+	}
+
+	public static void getMenuChoice(int userInput) {
+		switch(userInput) {
+		case 1:
+			Tops.printMenTops();
+			break;
+		case 2:
+			Bottoms.printMenBottoms();
+			break;
+		case 3:
+			Shoes.printMenShoes();
+			break;
+		case 4:
+			Tops.printWomenTops();
+			break;
+		case 5:
+			Bottoms.printWomenBottoms();
+			break;
+		case 6:
+			Shoes.printWomenShoes();
+			break;
+		case 7:
+			System.out.println("quit");
+			break;
+			
+		}
 	}
 
 	public static void printFirstMenu() {
