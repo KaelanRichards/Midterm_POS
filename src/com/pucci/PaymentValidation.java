@@ -9,10 +9,16 @@ public class PaymentValidation {
 
 		Scanner scan = new Scanner(System.in);
 
-		if (isValidCard(scan)) {
-			System.out.println("It works!");
+		// if (isValidCard(scan)) {
+		// System.out.println("It works!");
+		// } else {
+		// System.out.println("Deu merda");
+		// }
+
+		if (isValidCheck(scan)) {
+			System.out.println("it works");
 		} else {
-			System.out.println("Deu merda");
+			System.out.println("nope");
 		}
 
 	}
@@ -40,7 +46,7 @@ public class PaymentValidation {
 			} else {
 				System.out.println("This is not a valid card");
 			}
-			
+
 		} while (!isValidCard);
 
 		return isValidCard;
@@ -135,5 +141,50 @@ public class PaymentValidation {
 		return isValid;
 	}
 
+	public static boolean isValidCheck(Scanner scan) {
+
+		boolean isValid = false;
+
+		// // Regex to validate the first 2 digits
+		// String regex = "^([00]{2})|" // United States Government
+		// + "^([01]{1})([0-2]{1})|" // Federal Reserve Banks
+		// + "^([23]{1})([12]{1})|" // Thrift Institutions
+		// + "^([67]{1})([12]{1})|" // Special purpose
+		// + "^([80]{2})"; //Travel Check
+
+		System.out.println("Please enter the 9 digits in the bottom left of your check: ");
+		String checkNum = scan.nextLine();
+
+		String[] checkNumArr = checkNum.split("");
+
+		int[] checkDigits = new int[checkNumArr.length];
+		for (int i = 0; i < checkNumArr.length; i++) {
+			checkDigits[i] = Integer.parseInt(checkNumArr[i]);
+		}
+
+		// Checking if the numbers are valid according with the algorithm
+		int sumABA = 3 * (checkDigits[0] + checkDigits[3] + checkDigits[6])
+				+ 7 * (checkDigits[1] + checkDigits[4] + checkDigits[7])
+				+ (checkDigits[2] + checkDigits[5] + checkDigits[8]);
+
+		// if (checkNum.matches(regex)) {
+		if (sumABA % 10 == 0) {
+			isValid = true;
+		}
+		// }
+
+		return isValid;
+	}
 	
+	
+	public static double usersChange (double sumTotal, Scanner scan) {
+		
+		System.out.println("Please enter the amount: ");
+		double usersMoney = scan.nextDouble();
+		
+		
+		
+		return 0.0;
+	}
+
 }
