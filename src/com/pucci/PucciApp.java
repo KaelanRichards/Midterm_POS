@@ -57,8 +57,8 @@ public class PucciApp {
 		System.out.println("Have a Pucci day");
 		
 		//When creating a new Top: Parameters needed are (String name, String type, double price, int inventory, String size)  
-		Clothes test = new Tops("Button Down", "Shirt", 240.00, 2, "Medium");
-		System.out.println(test);
+//		Clothes test = new Tops("Button Down", "Shirt", 240.00, 2, "Medium");
+//		System.out.println(test);
 		
 	}
 
