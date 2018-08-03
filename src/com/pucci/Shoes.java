@@ -62,8 +62,32 @@ public class Shoes extends Clothes {
 		return wShoeList;
 	}
 
+	public static void getMenShoesToCart(int userChoice) {
+
+		int i = userChoice;
+		ArrayList<Clothes> arr = new ArrayList<>();
+		
+		for (i = 5; i <= 6; i++) {
+			if ((i - 4) == userChoice) {
+				
+				ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
+			}
+		}
+	}
+
+	public static void getWomenShoesToCart(int userChoice) {
+
+		int i = userChoice;
+		for (i = 14; i <= 15; i++) {
+			if ((i - 13) == userChoice) {
+
+				ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%-18s %-18s", getName(), getPrice());
+		return String.format("%-18s %-18s", getName(), (getPrice()));
 	}
 }

@@ -60,12 +60,33 @@ public class Bottoms extends Clothes {
 
 		return wBottomList;
 	}
+	
+	public static void getMenBottomsToCart(int userChoice) {
+
+		int i = userChoice;
+		for (i = 7; i <= 8; i++) {
+			if ((i - 6) == userChoice) {
+
+				ShoppingCart.addItem(FileMethods.readFromFileBottoms("Products.txt").get(i));
+			}
+		}
+	}
+	
+	public static void getWomenBottomsToCart(int userChoice) {
+
+		int i = userChoice;
+		for (i = 12; i <= 13; i++) {
+			if ((i - 11) == userChoice) {
+
+				ShoppingCart.addItem(FileMethods.readFromFileBottoms("Products.txt").get(i));
+			}
+		}
+	}
 
 	@Override
 	public String toString() {
 
-		return 
-				String.format("%-18s %-18s", getName(), getPrice());
+		return String.format("%-18s  %-18s", getName(), (getPrice()));
 		
 	}
 }

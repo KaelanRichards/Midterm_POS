@@ -39,15 +39,11 @@ public class PucciApp {
 		do {
 			userProductChoice = Validator.getInt(scan, "Please select the number to add product to your shopping cart or 0 to return to main menu");
 			
-			for (int i = 0; i < 6 ; i++) {
-				if((i+1) == userProductChoice) {
-					
-					ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
-				}
-			}
+			
+			 getProductCart(menuChoice, userProductChoice);
 			cont = Validator.getString(scan, "Would you like to continue shopping");
 		}while(cont.equalsIgnoreCase("y"));
-		//System.out.println(ShoppingCart.viewCart());
+		// System.out.println(ShoppingCart.viewCart());
 		
 	
 		
@@ -82,6 +78,40 @@ public class PucciApp {
 //		Clothes test = new Tops("Button Down", "Shirt", 240.00, 2, "Medium");
 //		System.out.println(test);
 		
+	}
+
+	public static void getProductCart(int menuChoice, int productChoice) {
+		getMenuChoice(menuChoice);
+		
+		switch(menuChoice) {
+//		case 1:
+//			getMenTopsToCart(productChoice);
+//			break;
+		case 2:
+			Bottoms.getMenBottomsToCart(productChoice);
+			break;
+		case 3:
+			Shoes.getMenShoesToCart(productChoice);
+			ShoppingCart.viewCart();
+			break;
+//		case 4:
+//			getWomensTopsToCart(productChoice);
+//			break;
+		case 5:
+			Bottoms.getWomenBottomsToCart(productChoice);
+			break;
+		case 6:
+			Shoes.getWomenShoesToCart(productChoice);
+			break;
+		}
+		
+		
+//		for (int i = 0; i < 6 ; i++) {
+//			if((i+1) == userProductChoice) {
+//				
+//				ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
+//			}
+//		}
 	}
 
 	public static void getMenuChoice(int userInput) {
