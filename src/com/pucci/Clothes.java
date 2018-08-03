@@ -6,7 +6,7 @@ package com.pucci;
  *
  */
 
-public abstract class Clothes {
+public class Clothes {
 
 	private String name;
 	private String type; //Tops Bottoms Shoes

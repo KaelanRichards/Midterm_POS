@@ -21,7 +21,7 @@ public class Tops extends Clothes {
 
 	public static void printMenTops() {
 
-		ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu = FileMethods.readFromFileTops("Products.txt");
 		ArrayList<Clothes> mTopList = new ArrayList<>();
 		mTopList.add(menu.get(0));
 		mTopList.add(menu.get(1));
@@ -39,12 +39,11 @@ public class Tops extends Clothes {
 
 	public static void printWomenTops() {
 
-		ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu = FileMethods.readFromFileTops("Products.txt");
 		ArrayList<Clothes> wTopList = new ArrayList<>();
 		wTopList.add(menu.get(9));
 		wTopList.add(menu.get(10));
 		wTopList.add(menu.get(11));
-		
 
 		int i = 1;
 		for (Clothes c : wTopList) {
@@ -53,17 +52,18 @@ public class Tops extends Clothes {
 			i++;
 		}
 	}
-		public static ArrayList<Clothes> getMenTops() {
 
-			ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
-			ArrayList<Clothes> mTopList = new ArrayList<>();
-			mTopList.add(menu.get(0));
-			mTopList.add(menu.get(1));
-			mTopList.add(menu.get(2));
-			mTopList.add(menu.get(3));
-			mTopList.add(menu.get(4));
-			
-			return mTopList;
+	public static ArrayList<Clothes> getMenTops() {
+
+		ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> mTopList = new ArrayList<>();
+		mTopList.add(menu.get(0));
+		mTopList.add(menu.get(1));
+		mTopList.add(menu.get(2));
+		mTopList.add(menu.get(3));
+		mTopList.add(menu.get(4));
+
+		return mTopList;
 
 	}
 
@@ -73,7 +73,8 @@ public class Tops extends Clothes {
 	 * @see java.lang.Object#toString()
 	 */
 
-//	@Override
-//	public String toString(String name, String price, ) {
-//		return name.equals(getName());// + "," + "$" + this.price = price;
+	@Override
+	public String toString() {
+		return "joe's test";
+	}
 }
