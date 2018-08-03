@@ -52,6 +52,18 @@ public class Tops extends Clothes {
 			System.out.println(i + ". " + c);
 			i++;
 		}
+	}
+		public static ArrayList<Clothes> getMenTops() {
+
+			ArrayList<Clothes> menu = FileMethods.readFromFile("Products.txt");
+			ArrayList<Clothes> mTopList = new ArrayList<>();
+			mTopList.add(menu.get(0));
+			mTopList.add(menu.get(1));
+			mTopList.add(menu.get(2));
+			mTopList.add(menu.get(3));
+			mTopList.add(menu.get(4));
+			
+			return mTopList;
 
 	}
 
