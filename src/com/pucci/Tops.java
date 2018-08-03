@@ -66,6 +66,28 @@ public class Tops extends Clothes {
 		return mTopList;
 
 	}
+	
+	public static void getMenTopsToCart(int userChoice) {
+
+		int i = userChoice;
+		for (i = 0; i < 6; i++) {
+			if ((i + 1) == userChoice) {
+
+				ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
+			}
+		}
+	}
+	
+	public static void getWomenTopsToCart(int userChoice) {
+
+		int i = userChoice;
+		for (i = 9; i <= 11; i++) {
+			if ((i - 8) == userChoice) {
+
+				ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
+			}
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
