@@ -17,7 +17,7 @@ public class Bottoms extends Clothes {
 	}
 
 	public static void printMenBottoms() {
-		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu2 = FileMethods.readFromFileBottoms("Products.txt");
 		ArrayList<Clothes> mBottomList = new ArrayList<>();
 		mBottomList.add(menu2.get(7));
 		mBottomList.add(menu2.get(8));
@@ -30,7 +30,7 @@ public class Bottoms extends Clothes {
 	}
 
 	public static void printWomenBottoms() {
-		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu2 = FileMethods.readFromFileBottoms("Products.txt");
 		ArrayList<Clothes> wBottomList = new ArrayList<>();
 		wBottomList.add(menu2.get(12));
 		wBottomList.add(menu2.get(13));
@@ -42,21 +42,30 @@ public class Bottoms extends Clothes {
 			i++;
 		}
 	}
+
 	public static ArrayList<Clothes> getMBottomList() {
 		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
 		ArrayList<Clothes> mBottomList = new ArrayList<>();
 		mBottomList.add(menu2.get(7));
 		mBottomList.add(menu2.get(8));
-		
+
 		return mBottomList;
 	}
-	
+
 	public static ArrayList<Clothes> getWBottomList() {
 		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
 		ArrayList<Clothes> wBottomList = new ArrayList<>();
 		wBottomList.add(menu2.get(12));
 		wBottomList.add(menu2.get(13));
-	
+
 		return wBottomList;
+	}
+
+	@Override
+	public String toString() {
+
+		return 
+				String.format("%-18s %-18s", getName(), getPrice());
+		
 	}
 }

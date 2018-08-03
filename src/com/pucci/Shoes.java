@@ -16,7 +16,7 @@ public class Shoes extends Clothes {
 	}
 
 	public static void printMenShoes() {
-		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu2 = FileMethods.readFromFileShoes("Products.txt");
 		ArrayList<Clothes> mShoeList = new ArrayList<>();
 		mShoeList.add(menu2.get(5));
 		mShoeList.add(menu2.get(6));
@@ -30,7 +30,7 @@ public class Shoes extends Clothes {
 	}
 
 	public static void printWomenShoes() {
-		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> menu2 = FileMethods.readFromFileShoes("Products.txt");
 		ArrayList<Clothes> wShoeList = new ArrayList<>();
 		wShoeList.add(menu2.get(14));
 		wShoeList.add(menu2.get(15));
@@ -48,7 +48,7 @@ public class Shoes extends Clothes {
 		ArrayList<Clothes> mShoeList = new ArrayList<>();
 		mShoeList.add(menu2.get(5));
 		mShoeList.add(menu2.get(6));
-		
+
 		return mShoeList;
 
 	}
@@ -58,7 +58,12 @@ public class Shoes extends Clothes {
 		ArrayList<Clothes> wShoeList = new ArrayList<>();
 		wShoeList.add(menu2.get(14));
 		wShoeList.add(menu2.get(15));
-		
+
 		return wShoeList;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%-18s %-18s", getName(), getPrice());
 	}
 }
