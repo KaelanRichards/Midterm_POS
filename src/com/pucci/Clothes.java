@@ -10,13 +10,13 @@ public abstract class Clothes {
 
 	private String name;
 	private String type; //Tops Bottoms Shoes
-	private double price;
-	private int inventory; //Available product amount 
+	private String price;
+	private String inventory; //Available product amount 
+	private String Gender;
 	
 	
 	
-	
-	public Clothes(String name, String type, double price, int inventory) {
+	public Clothes(String gender, String name, String type, String price, String inventory) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -51,25 +51,25 @@ public abstract class Clothes {
 	/**
 	 * @return the price
 	 */
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 	/**
 	 * @return the inventory
 	 */
-	public int getInventory() {
+	public String getInventory() {
 		return inventory;
 	}
 	/**
 	 * @param inventory the inventory to set
 	 */
-	public void setInventory(int inventory) {
+	public void setInventory(String inventory) {
 		this.inventory = inventory;
 	}
 	/* (non-Javadoc)

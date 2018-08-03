@@ -12,28 +12,28 @@ package com.pucci;
 public class Tops extends Clothes {
 
 		
+	public Tops(String gender, String name, String type, String price, String inventory) {
+		super(gender, name, type, price, inventory);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	private String size;
 
 	
-	public Tops(String name, String type, double price, int inventory, String size) {
-		super(name, type, price, inventory);
+	
+	public void printTops() {
+		FileMethods.readFromFile("Products.txt");
+		
 	}
+	
+	
 
 
-	/**
-	 * @return the size
-	 */
-	public String getSize() {
-		return size;
-	}
-
-	/**
-	 * @param size the size to set
-	 */
-	public void setSize(String size) {
-		this.size = size;
-	}
-
+	
+	
+	
 
 	
 	
