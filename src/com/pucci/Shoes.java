@@ -65,9 +65,11 @@ public class Shoes extends Clothes {
 	public static void getMenShoesToCart(int userChoice) {
 
 		int i = userChoice;
+		ArrayList<Clothes> arr = new ArrayList<>();
+		
 		for (i = 5; i <= 6; i++) {
-			if ((i + 1) == userChoice) {
-
+			if ((i - 4) == userChoice) {
+				
 				ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
 			}
 		}
@@ -77,7 +79,7 @@ public class Shoes extends Clothes {
 
 		int i = userChoice;
 		for (i = 14; i <= 15; i++) {
-			if ((i + 1) == userChoice) {
+			if ((i - 13) == userChoice) {
 
 				ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
 			}

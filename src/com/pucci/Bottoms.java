@@ -65,7 +65,7 @@ public class Bottoms extends Clothes {
 
 		int i = userChoice;
 		for (i = 7; i <= 8; i++) {
-			if ((i + 1) == userChoice) {
+			if ((i - 6) == userChoice) {
 
 				ShoppingCart.addItem(FileMethods.readFromFileBottoms("Products.txt").get(i));
 			}
@@ -76,7 +76,7 @@ public class Bottoms extends Clothes {
 
 		int i = userChoice;
 		for (i = 12; i <= 13; i++) {
-			if ((i + 1) == userChoice) {
+			if ((i - 11) == userChoice) {
 
 				ShoppingCart.addItem(FileMethods.readFromFileBottoms("Products.txt").get(i));
 			}
