@@ -1,5 +1,6 @@
 package com.pucci;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class PaymentValidation {
@@ -8,7 +9,7 @@ public class PaymentValidation {
 
 		Scanner scan = new Scanner(System.in);
 
-		if (validateLuhn(scan)) {
+		if (isValidCard(scan)) {
 			System.out.println("It works!");
 		} else {
 			System.out.println("Deu merda");
@@ -16,66 +17,123 @@ public class PaymentValidation {
 
 	}
 
-	public static boolean validateLuhn(Scanner scan) {
+	public static boolean isValidCard(Scanner scan) {
+
+		boolean isValidCard = false;
+
+		do {
+			System.out.println("Please, enter the card number: ");
+			String cardNumber = scan.nextLine();
+
+			System.out.println("Please, enter the security code: ");
+			String securityCode = scan.nextLine();
+
+			System.out.println("Please, enter the expiration date: ");
+			String expirationDate = scan.nextLine();
+
+			if (isValidCompany(cardNumber, securityCode)) {
+				if (isValidLuhn(cardNumber)) {
+					if (isValidDate(expirationDate)) {
+						isValidCard = true;
+					}
+				}
+			} else {
+				System.out.println("This is not a valid card");
+			}
+			
+		} while (!isValidCard);
+
+		return isValidCard;
+
+	}
+
+	public static boolean isValidLuhn(String cardNumber) {
 		int cardSum = 0;
 		int i;
 		int digit = 0;
 		boolean isValid = false;
 
-//		do {
-			// Message to start getting input
-			System.out.println("Enter card");
-			String cardNumber = scan.nextLine();
+		String[] digits = cardNumber.split("");
+		for (i = 0; i < digits.length; i++) {
 
-			boolean contValidation = validateCompany(cardNumber);
-			if (contValidation) {
-				String[] digits = cardNumber.split("");
-				for (i = 0; i < digits.length; i++) {
-					
-					//Getting the numbers in the reverse order
-					digit = Integer.parseInt(digits[digits.length - i - 1]);
-					
+			// Getting the numbers in the reverse order
+			digit = Integer.parseInt(digits[digits.length - i - 1]);
 
-					// It will multiply by 2 if odd
-					if (i % 2 == 1) {
-						// System.out.println(digit);
-						digit *= 2;
-						// System.out.println("double: " + digit);
+			// It will multiply by 2 if odd
+			if (i % 2 == 1) {
+				digit *= 2;
 
-						// If the sum has 2 digits, it will subtract 9
-						if (digit > 9) {
-							digit = digit -9;
-						}
-					}
-
-					cardSum += digit;
-				}
-
-				// The sum of the digits must be divisible by 10 to be valid
-				if (cardSum % 10 == 0) {
-					isValid = true;
+				// If the sum has 2 digits, it will subtract 9
+				if (digit > 9) {
+					digit = digit - 9;
 				}
 			}
-//		} while (isValid == false);
+			cardSum += digit;
+		}
+
+		// The sum of the digits must be divisible by 10 to be valid
+		if (cardSum % 10 == 0) {
+			isValid = true;
+		}
+
+		return isValid;
+
+	}
+
+	public static boolean isValidCompany(String cardNumber, String securityCode) {
+		boolean isValid = false;
+		// Validating the first digits and the lenght
+
+		// Validation for MasterCard, Discover and Visa
+		String regex1 = "^([5]{1})([1-5]{1})[0-9]{14}|^([6011]{4})([0-9]{12})|^([4]{1})([0-9]{13})";
+
+		// Validation for Amex, Diners Club (Carte Blance, International and USA &
+		// Canada
+		String regex2 = "^([3]{1})([47]{1})([0-9]{13})|^([30]{2})([0-5]{1})([0-9]{11})|^([36]{2})([0-9]{12})|^([54]{2})([0-9]{14})";
+
+		// Regex 3 - Security Code for Visa, MasteraCard and Discover
+		String regex3 = "^([0-9]{3})";
+
+		// Regex 4 - Security Code for Amex
+		String regex4 = "^([0-9]{4})";
+
+		// boolean isValid = cardNumber.matches(regex);
+		// If is Visa, Master or Discover
+		if (cardNumber.matches(regex1)) {
+			if (securityCode.matches(regex3)) {
+				isValid = true;
+			}
+		} else if (cardNumber.matches(regex2)) {
+			if (securityCode.matches(regex4)) {
+				isValid = true;
+			}
+		}
+
+		return isValid;
+
+	}
+
+	public static boolean isValidDate(String expirationDate) {
+
+		boolean isValid = false;
+
+		// Separating the users input into month and year
+		String[] date = expirationDate.split("/");
+		int userMonth = Integer.parseInt(date[0]);
+		int userYear = Integer.parseInt(date[1]);
+
+		// Getting the month and the year from now
+		LocalDate todaysDate = LocalDate.now();
+		int monthNow = todaysDate.getMonthValue();
+		String fullYearNow = Integer.toString(todaysDate.getYear());
+		int yearNow = Integer.parseInt(fullYearNow.substring(2, 4));
+
+		if (userYear >= yearNow && userMonth >= monthNow) {
+			isValid = true;
+		}
 
 		return isValid;
 	}
 
-	private static boolean validateCompany(String cardNumber) {
-		//
-		String regex = "^([5]{1})([1-5]{1})[0-9]{14}|" // MasterCard
-				+ "^([6011]{4})([0-9]{12})|" // Discover
-				+ "^([3]{1})([47]{1})([0-9]{13})|" // Amex
-				+ "^([300]{3})([0-5]{1})([0-9]{10})|" // Diners Club - Carte Blanche
-				+ "^([36]{2})([0-9]{12})|" // Diners Club - International
-				+ "^([54]{2})([0-9]{14})"; // Diners Club - USA & Canada
-		// + ""
-
-		boolean isValid = cardNumber.matches(regex);
-
-		return isValid;
-	}
-
-	// 79927398713
-
+	
 }
