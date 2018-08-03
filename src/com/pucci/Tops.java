@@ -16,7 +16,7 @@ public class Tops extends Clothes {
 
 	public Tops(String gender, String name, String type, String price, String inventory) {
 		super(gender, name, type, price, inventory);
-		name.equals(getName());
+		
 	}
 
 	public static void printMenTops() {
@@ -75,6 +75,6 @@ public class Tops extends Clothes {
 
 	@Override
 	public String toString() {
-		return "joe's test";
+		return String.format("%-18s %-18s", getName(), getPrice());
 	}
 }
