@@ -27,7 +27,6 @@ public class Bottoms extends Clothes {
 			System.out.println(i + ". " + c);
 			i++;
 		}
-
 	}
 
 	public static void printWomenBottoms() {
@@ -42,6 +41,22 @@ public class Bottoms extends Clothes {
 			System.out.println(i + ". " + c);
 			i++;
 		}
-
+	}
+	public static ArrayList<Clothes> getMBottomList() {
+		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> mBottomList = new ArrayList<>();
+		mBottomList.add(menu2.get(7));
+		mBottomList.add(menu2.get(8));
+		
+		return mBottomList;
+	}
+	
+	public static ArrayList<Clothes> getWBottomList() {
+		ArrayList<Clothes> menu2 = FileMethods.readFromFile("Products.txt");
+		ArrayList<Clothes> wBottomList = new ArrayList<>();
+		wBottomList.add(menu2.get(12));
+		wBottomList.add(menu2.get(13));
+	
+		return wBottomList;
 	}
 }
