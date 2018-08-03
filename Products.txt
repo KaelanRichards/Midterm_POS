@@ -1,7 +1,7 @@
 MenTops,French Cuff,Tops,175.00,4,Medium
 MenTops,T-Shirt,Tops,95.00,2,Small
 MenTops,T-Shirt,Tops,95.00,1,Medium
-MenTops,Polo, Tops,125.00,2,Medium
+MenTops,Polo,Tops,125.00,2,Medium
 MenTops,Button Down,Tops,145.00,3,Medium
 MenShoes,Boat Shoes,Shoes,425.00,3,8
 MenShoes,Alligator Skin,Shoes,675.00,3,10
