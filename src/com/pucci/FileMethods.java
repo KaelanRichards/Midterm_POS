@@ -36,6 +36,44 @@ public class FileMethods {
 				products = line.split(","); // parsing the data from the file
 				//if (products.length()
 
+				Clothes product = new Clothes(products[0],products[1],products[2],products[3],products[4]); // adding the parsed elements to the object
+				
+				productList.add(product); // adding the employee object to the list
+				
+				line = reader.readLine();
+			}
+			reader.close(); // this flushes the buffer and closes it
+		} catch (IOException e) {
+			System.out.println("Something went wrong");
+		}
+		
+		for (Clothes c : productList) {
+
+			System.out.println(c);
+			
+		}
+		return productList;
+	}
+	
+	public static ArrayList<Clothes> readFromFileTops(String fileName) {
+		
+		ArrayList<Clothes> productList = new ArrayList<>(); 
+		
+		Path filePath = Paths.get(fileName);
+		File file = filePath.toFile();
+
+		try {
+			FileReader fr = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fr);
+
+			String line = reader.readLine();
+
+			String[] products = new String[5]; // created to store the parsed data from the file
+			//String[] products2 = new String[4];
+			while (line != null) {
+				products = line.split(","); // parsing the data from the file
+				//if (products.length()
+
 				Clothes product = new Tops(products[0],products[1],products[2],products[3],products[4]); // adding the parsed elements to the object
 				
 				productList.add(product); // adding the employee object to the list
@@ -46,8 +84,12 @@ public class FileMethods {
 		} catch (IOException e) {
 			System.out.println("Something went wrong");
 		}
+		
 		return productList;
 	}
+
+
+
 
 	public static void writeToFile(String fileName, Clothes product) {
 
