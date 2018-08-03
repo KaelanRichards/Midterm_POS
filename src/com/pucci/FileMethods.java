@@ -18,7 +18,7 @@ public class FileMethods {
 	 * This is a void method to read from a file
 	 */
 	public static ArrayList<Clothes> readFromFile(String fileName) {
-		
+		// Making some updates to test for github push stuff
 		ArrayList<Clothes> productList = new ArrayList<>(); 
 		
 		Path filePath = Paths.get(fileName);
