@@ -179,12 +179,20 @@ public class PaymentValidation {
 	
 	public static double usersChange (double sumTotal, Scanner scan) {
 		
-		System.out.println("Please enter the amount: ");
-		double usersMoney = scan.nextDouble();
+		double change;
+		double usersMoney;
 		
+		do {
+			System.out.println("Please enter the amount: ");
+			usersMoney = scan.nextDouble();
+			if (usersMoney < sumTotal) {
+				System.out.println("The amount needs to be greater or equal to: " + sumTotal);
+			} 
+		} while (usersMoney < sumTotal);
 		
+		change = usersMoney - sumTotal;
 		
-		return 0.0;
+		return change;
 	}
 
 }
