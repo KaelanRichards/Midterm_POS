@@ -49,18 +49,27 @@ public class PucciApp {
 
 		// TODO This is not working yet
 		subTotal = ShoppingCart.subTotalCart();
+		System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
 		System.out.println("Your subtotal is: $" + subTotal);
 		grandTotal = ShoppingCart.grandTotalCart();
 		System.out.println("Your grandtotal is: $" + grandTotal);
+
 		
-		double sumTotal = 0.0; // Real variable will come from the cart class
 
 		// Prompt user for payment (cash, check, charge) (Validator class)
-		// payment(scan, sumTotal);
+		 payment(scan, grandTotal);
 
 		// TODO display receipt (items ordered, subtotal, grand total, appropriate
 		// payment info)
-
+		scan.nextLine(); 
+		String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
+		if (receipt.equalsIgnoreCase("y")) {
+			System.out.println("Here is your receipt");
+			ShoppingCart.viewCart();
+			
+			ShoppingCart.checkoutCart(subTotal, grandTotal, "");
+		}
+		
 		System.out.println("Have a Pucci day");
 
 	}

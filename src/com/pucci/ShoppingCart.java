@@ -80,9 +80,12 @@ public class ShoppingCart {
 		sTotal = Double.toString(subTotal);
 		gTotal = Double.toString(grandTotal);
 
-		receipt.add(paymentMethod);
-		receipt.add(gTotal);
-		receipt.add(sTotal);
+//		receipt.add(paymentMethod);
+//		receipt.add(gTotal);
+//		receipt.add(sTotal);
+//		System.out.println(receipt); 
+		
+		System.out.println("You paid with " + paymentMethod + "- Your Subtotal was " + sTotal + "- Your grandtotal was " + gTotal);
 	}
 
 }
