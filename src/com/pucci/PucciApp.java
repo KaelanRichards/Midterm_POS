@@ -14,57 +14,63 @@ public class PucciApp {
 		double subTotal;
 		double grandTotal;
 
-	
-
 		System.out.println("Welcome to Pucci");
 		System.out.println("Feel free to browse our shop");
 
-
 		do {
-			
+
 			// Using method in main to print the category menu
 			printFirstMenu();
 
 			// Getting user input to pick which category they would like to explore
 			menuChoice = Validator.getInt(scan, "Please select the number of which category you would like: ", 1, 7);
-		
+
 			// This method call will navigate to whichever category the user chose
 			getMenuChoice(menuChoice);
-			
+
 			// validate user input for which item they would like
 			userProductChoice = Validator.getInt(scan,
 					"Please select the number to add product to your shopping cart: ");
 
-			// This method will take in the category and specific product user would like and add it to cart
+			// This method will take in the category and specific product user would like
+			// and add it to cart
 			putProductInCart(menuChoice, userProductChoice);
-			
+
 			// View Shopping Cart
 			System.out.println();
 			System.out.println("SHOPPING CART");
 			System.out.println("=========================");
 			ShoppingCart.viewCart();
 			System.out.println();
-			
+
 			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
 
 		} while (cont.equalsIgnoreCase("y"));
 
 		// TODO This is not working yet
 		subTotal = ShoppingCart.subTotalCart();
+		System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
+		System.out.println("Your subtotal is: $" + subTotal);
 		grandTotal = ShoppingCart.grandTotalCart();
+		System.out.println("Your grandtotal is: $" + grandTotal);
 
-		double sumTotal = 0.0; // Real variable will come from the cart class
+		
 
 		// Prompt user for payment (cash, check, charge) (Validator class)
-		// payment(scan, sumTotal);
+		 payment(scan, grandTotal);
 
 		// TODO display receipt (items ordered, subtotal, grand total, appropriate
 		// payment info)
-
+		scan.nextLine(); 
+		String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
+		if (receipt.equalsIgnoreCase("y")) {
+			System.out.println("Here is your receipt");
+			ShoppingCart.viewCart();
+			
+			ShoppingCart.checkoutCart(subTotal, grandTotal, "");
+		}
 		
 		System.out.println("Have a Pucci day");
-
-		
 
 	}
 
@@ -90,7 +96,7 @@ public class PucciApp {
 	}
 
 	public static void putProductInCart(int menuChoice, int productChoice) {
-		//getMenuChoice(menuChoice);
+		// getMenuChoice(menuChoice);
 
 		switch (menuChoice) {
 		case 1:
