@@ -3,8 +3,17 @@ package com.pucci;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * @author Camila Brasil
+ *
+ */
+
 public class PaymentValidation {
 
+	/**
+	 * @param args
+	 * JUST TO TEST, SHOULD BE DELETED AT THE END
+	 */
 	public static void main(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
@@ -23,6 +32,10 @@ public class PaymentValidation {
 
 	}
 
+	/**
+	 * @param Scanner scan
+	 * @return boolean
+	 */
 	public static boolean isValidCard(Scanner scan) {
 
 		boolean isValidCard = false;
@@ -53,6 +66,10 @@ public class PaymentValidation {
 
 	}
 
+	/**
+	 * @param String cardNumber
+	 * @return boolean
+	 */
 	public static boolean isValidLuhn(String cardNumber) {
 		int cardSum = 0;
 		int i;
@@ -86,6 +103,11 @@ public class PaymentValidation {
 
 	}
 
+	/**
+	 * @param String cardNumber
+	 * @param String securityCode
+	 * @return boolean
+	 */
 	public static boolean isValidCompany(String cardNumber, String securityCode) {
 		boolean isValid = false;
 		// Validating the first digits and the lenght
@@ -118,7 +140,23 @@ public class PaymentValidation {
 		return isValid;
 
 	}
+	
+	//TODO Testing new ideas
+//	public static enum CreditCard {
+//		VISA, MASTERCARD, AMEX;
+//	}
+//	
+//	public static CreditCard whichcc(String ccNumber) {
+//		
+//		//logic to determine which number
+//		
+//		return CreditCard.VISA;
+//	}
 
+	/**
+	 * @param String expirationDate
+	 * @return boolean 
+	 */
 	public static boolean isValidDate(String expirationDate) {
 
 		boolean isValid = false;
@@ -141,6 +179,10 @@ public class PaymentValidation {
 		return isValid;
 	}
 
+	/**
+	 * @param Scanner scan
+	 * @return boolean
+	 */
 	public static boolean isValidCheck(Scanner scan) {
 
 		boolean isValid = false;
@@ -177,6 +219,11 @@ public class PaymentValidation {
 	}
 	
 	
+	/**
+	 * @param double sumTotal
+	 * @param Scanner scan
+	 * @return double
+	 */
 	public static double usersChange (double sumTotal, Scanner scan) {
 		
 		double change;
