@@ -59,9 +59,9 @@ public class PucciApp {
 		// Prompt user for payment (cash, check, charge) (Validator class)
 		 payment(scan, grandTotal);
 
-		// TODO display receipt (items ordered, subtotal, grand total, appropriate
+		
 		// payment info)
-		scan.nextLine(); 
+		
 		String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
 		if (receipt.equalsIgnoreCase("y")) {
 			System.out.println("Here is your receipt");
@@ -82,8 +82,8 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println("This is your change: ");
 			System.out.println(PaymentValidation.usersChange(sumTotal, scan));
+			System.out.println("This is your change: ");
 		} else if (userPayChoice.equals("2")) {
 			if (PaymentValidation.isValidCheck(scan)) {
 				System.out.println("Your purchase was approved.");
