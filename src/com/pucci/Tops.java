@@ -95,8 +95,8 @@ public class Tops extends Clothes {
 	 * @see java.lang.Object#toString()
 	 */
 
-	@Override
-	public String toString() {
-		return String.format("%-18s %-18s", getName(), getPrice());
-	}
+	//@Override
+//	public String toString() {
+//		return String.format("%-18s %-18s", getName(), getPrice());
+//	}
 }
