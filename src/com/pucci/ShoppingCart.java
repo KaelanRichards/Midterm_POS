@@ -47,7 +47,7 @@ public class ShoppingCart {
 		double total = 0;
 		for (Clothes product : shoppingCart) {
 			newProductList = product.toString().split(",");
-			double doublePrice = Double.parseDouble(newProductList[1].substring(1));
+			double doublePrice = Double.parseDouble(newProductList[1]);
 			total += doublePrice;
 		}
 		total = total * 1.08;
@@ -62,6 +62,7 @@ public class ShoppingCart {
 		double total = 0;
 		for (Clothes product : shoppingCart) {
 			newProductList = product.toString().split(",");
+
 			double doublePrice = Double.parseDouble(newProductList[1].substring(1));
 			System.out.println(Double.parseDouble(newProductList[1].substring(1)));
 			total += doublePrice;
@@ -81,9 +82,12 @@ public class ShoppingCart {
 		sTotal = Double.toString(subTotal);
 		gTotal = Double.toString(grandTotal);
 
-		receipt.add(paymentMethod);
-		receipt.add(gTotal);
-		receipt.add(sTotal);
+//		receipt.add(paymentMethod);
+//		receipt.add(gTotal);
+//		receipt.add(sTotal);
+//		System.out.println(receipt); 
+		
+		System.out.println("You paid with " + paymentMethod + "- Your Subtotal was " + sTotal + "- Your grandtotal was " + gTotal);
 	}
 
 }
