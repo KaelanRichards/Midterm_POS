@@ -77,7 +77,7 @@ public class Clothes {
 	 */
 	@Override
 	public String toString() {
-		return name + "," + "$" + price + "," + inventory;
+		return name + "," + price + "," + inventory;
 	}
 	
 	

@@ -63,8 +63,10 @@ public class ShoppingCart {
 		for (Clothes product : shoppingCart) {
 			newProductList = product.toString().split(",");
 
+
 			double doublePrice = Double.parseDouble(newProductList[1].substring(1));
 			System.out.println(Double.parseDouble(newProductList[1].substring(1)));
+
 			total += doublePrice;
 		}
 		
