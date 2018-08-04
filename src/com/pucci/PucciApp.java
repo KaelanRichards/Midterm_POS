@@ -84,12 +84,9 @@ public class PucciApp {
 			}
 		} else if (userPayChoice.equals("3")) {
 			if (PaymentValidation.isValidCard(scan))
-				;
 			{
-				System.out.println("Your purchase was approved.");
 			}
 		}
-		System.out.println("Thank you for shopping at Pucci!");
 	}
 
 	public static void putProductInCart(int menuChoice, int productChoice) {

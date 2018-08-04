@@ -11,29 +11,8 @@ import java.util.Scanner;
 public class PaymentValidation {
 
 	/**
-	 * @param args
-	 * JUST TO TEST, SHOULD BE DELETED AT THE END
-	 */
-	public static void main(String[] args) {
-
-		Scanner scan = new Scanner(System.in);
-
-		// if (isValidCard(scan)) {
-		// System.out.println("It works!");
-		// } else {
-		// System.out.println("Deu merda");
-		// }
-
-		if (isValidCheck(scan)) {
-			System.out.println("it works");
-		} else {
-			System.out.println("nope");
-		}
-
-	}
-
-	/**
-	 * @param Scanner scan
+	 * @param Scanner
+	 *            scan
 	 * @return boolean
 	 */
 	public static boolean isValidCard(Scanner scan) {
@@ -41,21 +20,22 @@ public class PaymentValidation {
 		boolean isValidCard = false;
 
 		do {
-			System.out.println("Please, enter the card number: ");
-			String cardNumber = scan.nextLine();
+			String cardNumber = Integer.toString(Validator.getInt(scan, "Please, enter the card number: "));
 
-			System.out.println("Please, enter the security code: ");
-			String securityCode = scan.nextLine();
+			String securityCode = Integer.toString(Validator.getInt(scan, "Please, enter the security code: "));
 
-			System.out.println("Please, enter the expiration date: ");
-			String expirationDate = scan.nextLine();
+			System.out.println();
+			String expirationDate = Validator.getString(scan, "Please, enter the expiration date: ");
 
-			if (isValidCompany(cardNumber, securityCode)) {
+			String cardCompany = CreditCard.getMatchingCreditCard(cardNumber, securityCode);
+
+			if (cardCompany != null) {
 				if (isValidLuhn(cardNumber)) {
 					if (isValidDate(expirationDate)) {
 						isValidCard = true;
 					}
 				}
+				System.out.println("Payment method: " + cardCompany + ".\nApproved.");
 			} else {
 				System.out.println("This is not a valid card");
 			}
@@ -67,7 +47,8 @@ public class PaymentValidation {
 	}
 
 	/**
-	 * @param String cardNumber
+	 * @param String
+	 *            cardNumber
 	 * @return boolean
 	 */
 	public static boolean isValidLuhn(String cardNumber) {
@@ -104,58 +85,9 @@ public class PaymentValidation {
 	}
 
 	/**
-	 * @param String cardNumber
-	 * @param String securityCode
+	 * @param String
+	 *            expirationDate
 	 * @return boolean
-	 */
-	public static boolean isValidCompany(String cardNumber, String securityCode) {
-		boolean isValid = false;
-		// Validating the first digits and the lenght
-
-		// Validation for MasterCard, Discover and Visa
-		String regex1 = "^([5]{1})([1-5]{1})[0-9]{14}|^([6011]{4})([0-9]{12})|^([4]{1})([0-9]{13})";
-
-		// Validation for Amex, Diners Club (Carte Blance, International and USA &
-		// Canada
-		String regex2 = "^([3]{1})([47]{1})([0-9]{13})|^([30]{2})([0-5]{1})([0-9]{11})|^([36]{2})([0-9]{12})|^([54]{2})([0-9]{14})";
-
-		// Regex 3 - Security Code for Visa, MasteraCard and Discover
-		String regex3 = "^([0-9]{3})";
-
-		// Regex 4 - Security Code for Amex
-		String regex4 = "^([0-9]{4})";
-
-		// boolean isValid = cardNumber.matches(regex);
-		// If is Visa, Master or Discover
-		if (cardNumber.matches(regex1)) {
-			if (securityCode.matches(regex3)) {
-				isValid = true;
-			}
-		} else if (cardNumber.matches(regex2)) {
-			if (securityCode.matches(regex4)) {
-				isValid = true;
-			}
-		}
-
-		return isValid;
-
-	}
-	
-	//TODO Testing new ideas
-//	public static enum CreditCard {
-//		VISA, MASTERCARD, AMEX;
-//	}
-//	
-//	public static CreditCard whichcc(String ccNumber) {
-//		
-//		//logic to determine which number
-//		
-//		return CreditCard.VISA;
-//	}
-
-	/**
-	 * @param String expirationDate
-	 * @return boolean 
 	 */
 	public static boolean isValidDate(String expirationDate) {
 
@@ -180,19 +112,13 @@ public class PaymentValidation {
 	}
 
 	/**
-	 * @param Scanner scan
+	 * @param Scanner
+	 *            scan
 	 * @return boolean
 	 */
 	public static boolean isValidCheck(Scanner scan) {
 
 		boolean isValid = false;
-
-		// // Regex to validate the first 2 digits
-		// String regex = "^([00]{2})|" // United States Government
-		// + "^([01]{1})([0-2]{1})|" // Federal Reserve Banks
-		// + "^([23]{1})([12]{1})|" // Thrift Institutions
-		// + "^([67]{1})([12]{1})|" // Special purpose
-		// + "^([80]{2})"; //Travel Check
 
 		System.out.println("Please enter the 9 digits in the bottom left of your check: ");
 		String checkNum = scan.nextLine();
@@ -217,28 +143,29 @@ public class PaymentValidation {
 
 		return isValid;
 	}
-	
-	
+
 	/**
-	 * @param double sumTotal
-	 * @param Scanner scan
+	 * @param double
+	 *            sumTotal
+	 * @param Scanner
+	 *            scan
 	 * @return double
 	 */
-	public static double usersChange (double sumTotal, Scanner scan) {
-		
+	public static double usersChange(double sumTotal, Scanner scan) {
+
 		double change;
 		double usersMoney;
-		
+
 		do {
 			System.out.println("Please enter the amount: ");
 			usersMoney = scan.nextDouble();
 			if (usersMoney < sumTotal) {
 				System.out.println("The amount needs to be greater or equal to: " + sumTotal);
-			} 
+			}
 		} while (usersMoney < sumTotal);
-		
+
 		change = usersMoney - sumTotal;
-		
+
 		return change;
 	}
 
