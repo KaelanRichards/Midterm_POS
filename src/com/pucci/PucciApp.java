@@ -82,15 +82,14 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println(PaymentValidation.usersChange(sumTotal, scan));
 			System.out.println("This is your change: ");
+			System.out.println(PaymentValidation.usersChange(sumTotal, scan));
 		} else if (userPayChoice.equals("2")) {
 			if (PaymentValidation.isValidCheck(scan)) {
 				System.out.println("Your purchase was approved.");
 			}
 		} else if (userPayChoice.equals("3")) {
-			if (PaymentValidation.isValidCard(scan))
-			{
+			if (PaymentValidation.isValidCard(scan)){
 			}
 		}
 	}
