@@ -20,7 +20,7 @@ public class PaymentValidation {
 		boolean isValidCard = false;
 
 		do {
-			String cardNumber = Integer.toString(Validator.getInt(scan, "Please, enter the card number: "));
+			String cardNumber = Long.toString(Validator.getLong(scan, "Please, enter the card number: "));
 
 			String securityCode = Integer.toString(Validator.getInt(scan, "Please, enter the security code: "));
 

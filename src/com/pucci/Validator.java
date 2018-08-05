@@ -103,4 +103,26 @@ public class Validator
         }
         return d;
     }
+    
+    // validates integers from user  
+    public static long getLong(Scanner sc, String prompt)
+    {
+        long i = 0;
+        boolean isValid = false;
+        while (isValid == false)
+        {
+            System.out.print(prompt);
+            if (sc.hasNextLong())
+            {
+                i = sc.nextLong();
+                isValid = true;
+            }
+            else
+            {
+                System.out.println("Error! Invalid long value. Try again.");
+            }
+            sc.nextLine();  // discard any other data entered on the line
+        }
+        return i;
+    }
 }
