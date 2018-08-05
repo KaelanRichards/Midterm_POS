@@ -72,8 +72,8 @@ public class PucciApp {
 		if (receipt.equalsIgnoreCase("y")) {
 			System.out.println("Here is your receipt");
 			ShoppingCart.viewCart();
-			
 			ShoppingCart.checkoutCart(subTotal, grandTotal, "");
+			
 		}
 		
 		System.out.println("Have a Pucci day");
@@ -83,10 +83,10 @@ public class PucciApp {
 	
 	//CUSTOM METHODS START BELOW//
 
-	public static void payment(Scanner scan, double sumTotal) {
+	public static String payment(Scanner scan, double sumTotal) {
 		String userPayChoice;
 
-		System.out.println("What it will be your choice of payment: ");
+		System.out.println("Please select your method of payment: ");
 		System.out.println("1. Cash \n2. Check \n3. Card");
 		userPayChoice = scan.nextLine();
 
@@ -100,6 +100,7 @@ public class PucciApp {
 			if (PaymentValidation.isValidCard(scan)){
 			}
 		}
+		return userPayChoice;
 	}
 
 	public static void putProductInCart(int menuChoice, int productChoice) {
