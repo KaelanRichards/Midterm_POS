@@ -2,10 +2,16 @@ package com.pucci;
 
 import java.util.Scanner;
 
+
+
 public class PucciApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		
+		
+	
+
 
 		// All variable declarations
 		int menuChoice;
@@ -73,6 +79,9 @@ public class PucciApp {
 		System.out.println("Have a Pucci day");
 
 	}
+	
+	
+	//CUSTOM METHODS START BELOW//
 
 	public static void payment(Scanner scan, double sumTotal) {
 		String userPayChoice;
@@ -82,8 +91,7 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println("This is your change: ");
-			System.out.println(PaymentValidation.usersChange(sumTotal, scan));
+			System.out.println("Your change is " + (PaymentValidation.usersChange(sumTotal, scan)) + " Dollars.");
 		} else if (userPayChoice.equals("2")) {
 			if (PaymentValidation.isValidCheck(scan)) {
 				System.out.println("Your purchase was approved.");
@@ -159,6 +167,7 @@ public class PucciApp {
 				"\t 7.Exit" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);
+				
 		}
 	}
 
