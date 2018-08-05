@@ -1,7 +1,5 @@
 package com.pucci;
 
-import java.time.LocalDate;
-
 /**
  * @author Camila Brasil
  *

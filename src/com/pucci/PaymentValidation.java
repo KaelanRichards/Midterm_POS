@@ -153,7 +153,6 @@ public class PaymentValidation {
 	 */
 	public static double usersChange(double sumTotal, Scanner scan) {
 
-		double change;
 		double usersMoney;
 
 		do {
@@ -164,7 +163,7 @@ public class PaymentValidation {
 			}
 		} while (usersMoney < sumTotal);
 
-		change = usersMoney - sumTotal;
+		double change = Math.round(usersMoney - sumTotal);
 
 		return change;
 	}

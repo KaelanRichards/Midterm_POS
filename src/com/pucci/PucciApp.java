@@ -50,9 +50,9 @@ public class PucciApp {
 		// TODO This is not working yet
 		subTotal = ShoppingCart.subTotalCart();
 		System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
-		System.out.println("Your subtotal is: $" + subTotal);
+		System.out.println("Your subtotal is: $" + Math.round(subTotal));
 		grandTotal = ShoppingCart.grandTotalCart();
-		System.out.println("Your grandtotal is: $" + grandTotal);
+		System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
 
 		
 
@@ -78,7 +78,7 @@ public class PucciApp {
 		String userPayChoice;
 
 		System.out.println("What it will be your choice of payment: ");
-		System.out.println("1. Cash \n 2. Check \n 3.Card");
+		System.out.println("1. Cash \n2. Check \n3. Card");
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
