@@ -1,5 +1,6 @@
 package com.pucci;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PucciApp {
@@ -146,31 +147,35 @@ public class PucciApp {
 	}
 
 	public static void getMenuChoice(int userInput) {
-		switch (userInput) {
-		case 1:
-			Tops.printMenTops();
-			break;
-		case 2:
-			Bottoms.printMenBottoms();
-			break;
-		case 3:
-			Shoes.printMenShoes();
-			break;
-		case 4:
-			Tops.printWomenTops();
-			break;
-		case 5:
-			Bottoms.printWomenBottoms();
-			break;
-		case 6:
-			Shoes.printWomenShoes();
-			break;
-		// case 7:
-		// System.out.println("quit");
-		// break;
+		String genderType = null;
 
+		if (userInput <= 3 & userInput >= 1) {
+			genderType = "Men";
+		} else if (userInput <= 6) {
+			genderType = "Women";
 		}
+
+		if (userInput == 1 || userInput == 4) {
+			genderType += "Tops";
+		} else if (userInput == 2 || userInput == 5) {
+			genderType += "Bottom";
+		} else if (userInput == 3 || userInput == 6) {
+			genderType += "Shoes";
+		}
+
+		ArrayList<Clothes> inventory = FileMethods.readFromFile("Products.txt");
+		String[] singleProduct;
+
+		for (int i = 0; i < inventory.size(); i++) {
+			singleProduct = inventory.get(i).toString().split(",");
+
+			if (singleProduct[0].equals(genderType)) {
+				System.out.println(singleProduct[1] + " $" + singleProduct[2]);
+			}
+		}
+
 	}
+
 
 	public static void printFirstMenu() {
 		String[] firstMenu = { "Men \t\t Women", "1.Top \t\t 4.Top", "2.Bottoms \t 5.Bottoms", "3.Shoes \t 6.Shoes",
