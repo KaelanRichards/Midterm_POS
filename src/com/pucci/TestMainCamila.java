@@ -1,68 +1,171 @@
 package com.pucci;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestMainCamila {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		
 
 		// All variable declarations
+		int menuChoice;
 		int userProductChoice = 0;
 		String cont = "y";
-		String userPayChoice;
+		double subTotal;
+		double grandTotal;
+		String exit = null;
 
-		// Welcome User to Pucci and give instruction
-		System.out.println("Welcome to Pucci");
-		System.out.println("select a category from the menu below");
-
-		// Display menu with options
-		printFirstMenu();
-
-		// Get input from user
-		int menuChoice = Validator.getInt(scan, "Please select the number of which category you would like", 1, 7);
-		
-		//Processing the users choice and returning an array with the indexes of the options from the read from file array
-		int[] indexes = getMenuChoice(menuChoice);
+//		System.out.println("Welcome to Pucci");
+//		System.out.println("Feel free to browse our shop");
 
 		do {
-			userProductChoice = Validator.getInt(scan,
-					"Please select the number to add product to your shopping cart or 0 to return to main menu");
 
-			//It would have to change the parameters from the method, to take the index of the product selected from the read from file array
-			ShoppingCart.addItem(indexes[userProductChoice - 1]);
+			// Using method in main to print the category menu
+			printFirstMenu();
 
-			cont = Validator.getString(scan, "Would you like to continue shopping");
-		} while (cont.equalsIgnoreCase("y"));
+			// Getting user input to pick which category they would like to explore
+			menuChoice = Validator.getInt(scan, "Please select the number of which category you would like: ", 1, 7);
+
+			// This method call will navigate to whichever category the user chose
+			getMenuChoice(menuChoice);
+
+			// TODO New Stuff
+			//This method will take in the category and specific product user would like
+			// and add it to cart
+			if (menuChoice == 7) {
+				break;
+			} else {
+				// validate user input for which item they would like
+				System.out.println("0. Return");
+				userProductChoice = Validator.getInt(scan,
+						"Please select the number to add product to your shopping cart: ");
+				if (userProductChoice == 0) {
+						continue;
+				} else {
+					putProductInCart(menuChoice, userProductChoice);
+				}
+			}
+			
+
+			// View Shopping Cart
+			System.out.println();
+			System.out.println("SHOPPING CART");
+			System.out.println("=========================");
+			ShoppingCart.viewCart();
+			System.out.println();
+
+			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
+
+		} while (cont.equalsIgnoreCase("y") );
+
 		
 		
-		 // System.out.println(ShoppingCart.viewCart());
-		//
-		// ShoppingCart.viewCart();
-		//
-		// // TODO Add to cart? (do - while loop to product menu) (write to cart text
-		// file)
-		//
-		// // TODO loop back when user done shopping
-		//
-		// // TODO print out user cart (read cart text file)
-		// double sumTotal = 0;
-		//
-		// // Prompt user for payment (cash, check, charge)
-		// payment(scan, sumTotal);
-		//
-		// // TODO display receipt (items ordered, subtotal, grand total, appropriate
-		// // payment info)
-		//
-		// // Goodbye
-		// System.out.println("Have a Pucci day");
-		//
-		// // When creating a new Top: Parameters needed are (String name, String type,
-		// // double price, int inventory, String size)
-		// // Clothes test = new Tops("Button Down", "Shirt", 240.00, 2, "Medium");
-		// // System.out.println(test);
+		subTotal = ShoppingCart.subTotalCart();
+		// payment info) 
+		//TODO NEW Stuff
+		if (subTotal != 0) {
+			// TODO This is not working yet
+			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
+			System.out.println("Your subtotal is: $" + Math.round(subTotal));
+			grandTotal = ShoppingCart.grandTotalCart();
+			System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
+			// Prompt user for payment (cash, check, charge) (Validator class)
+			payment(scan, grandTotal);
+			scan.nextLine();
+			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
+			if (receipt.equalsIgnoreCase("y")) {
+				System.out.println("Here is your receipt");
+				ShoppingCart.viewCart();
+				ShoppingCart.checkoutCart(subTotal, grandTotal, "");
 
+			} 
+		}
+		System.out.println("Have a Pucci day");
+
+	}
+	
+	
+	//CUSTOM METHODS START BELOW//
+
+	public static String payment(Scanner scan, double sumTotal) {
+		String userPayChoice;
+
+		System.out.println("Please select your method of payment: ");
+		System.out.println("1. Cash \n2. Check \n3. Card");
+		userPayChoice = scan.nextLine();
+
+		if (userPayChoice.equals("1")) {
+			System.out.println("Your change is " + (PaymentValidation.usersChange(sumTotal, scan)) + " Dollars.");
+		} else if (userPayChoice.equals("2")) {
+			if (PaymentValidation.isValidCheck(scan)) {
+				System.out.println("Your purchase was approved.");
+			}
+		} else if (userPayChoice.equals("3")) {
+			if (PaymentValidation.isValidCard(scan)){
+			}
+		}
+		return userPayChoice;
+	}
+
+	public static void putProductInCart(int menuChoice, int productChoice) {
+		// getMenuChoice(menuChoice);
+		
+		switch (menuChoice) {
+		case 1:
+			Tops.getMenTopsToCart(productChoice);
+			break;
+		case 2:
+			Bottoms.getMenBottomsToCart(productChoice);
+			break;
+		case 3:
+			Shoes.getMenShoesToCart(productChoice);
+			ShoppingCart.viewCart();
+			break;
+		case 4:
+			Tops.getWomenTopsToCart(productChoice);
+			break;
+		case 5:
+			Bottoms.getWomenBottomsToCart(productChoice);
+			break;
+		case 6:
+			Shoes.getWomenShoesToCart(productChoice);
+			break;
+		}
+
+		// for (int i = 0; i < 6 ; i++) {
+		// if((i+1) == userProductChoice) {
+		//
+		// ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
+		// }
+		// }
+	}
+
+	public static void getMenuChoice(int userInput) {
+		switch (userInput) {
+		case 1:
+			Tops.printMenTops();
+			break;
+		case 2:
+			Bottoms.printMenBottoms();
+			break;
+		case 3:
+			Shoes.printMenShoes();
+			break;
+		case 4:
+			Tops.printWomenTops();
+			break;
+		case 5:
+			Bottoms.printWomenBottoms();
+			break;
+		case 6:
+			Shoes.printWomenShoes();
+			break;
+//		case 7:
+//			System.out.println("quit");
+//			break;
+
+		}
 	}
 
 	public static void printFirstMenu() {
@@ -70,65 +173,46 @@ public class TestMainCamila {
 				"\t 7.Exit" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);
+				
 		}
-	}
-
-	public static int[] getMenuChoice(int userInput) {
-
-		ArrayList<Clothes> productList = FileMethods.readFromFile("products.txt");
-		String optionGender = null;
-		String optionType = null;
-		int[] indexes = null;
-
-		if (userInput <= 3 && userInput >= 1) {
-			optionGender = "Men";
-		} else if (userInput <= 6) {
-			optionGender = "Women";
-		}
-
-		if (userInput == 1 || userInput == 4) {
-			optionType = "Tops";
-		} else if (userInput == 2 || userInput == 5) {
-			optionType = "Bottoms";
-		} else if (userInput == 3 || userInput == 6) {
-			optionType = "Shoes";
-		}
-
-		for (int i = 0; i < productList.size(); i++) {
-			String[] b = productList.get(1).toString().split(",");
-			if (b[0].equalsIgnoreCase(optionGender + optionType)) {
-				int j = 0;
-				System.out.println(j + ". " + productList.get(i).toString());
-				indexes[j] = i;
-				j++;
-			}
-		}
-
-		return indexes;
-	}
-
-	public static void payment(Scanner scan, double sumTotal) {
-		String userPayChoice;
-
-		System.out.println("Please select your choice of payment: ");
-		System.out.println("1. Cash \n 2. Check \n 3.Card");
-		userPayChoice = scan.nextLine();
-
-		if (userPayChoice.equals("1")) {
-			System.out.println("This is your change: ");
-			System.out.println(PaymentValidation.usersChange(sumTotal, scan));
-		} else if (userPayChoice.equals("2")) {
-			if (PaymentValidation.isValidCheck(scan)) {
-				System.out.println("Your purchase was approved.");
-			}
-		} else if (userPayChoice.equals("3")) {
-			if (PaymentValidation.isValidCard(scan))
-				;
-			{
-				System.out.println("Your purchase was approved.");
-			}
-		}
-		System.out.println("Thank you for shopping at Pucci!");
 	}
 
 }
+
+
+
+
+//	public static int[] getMenuChoice(int userInput) {
+//
+//		ArrayList<Clothes> productList = FileMethods.readFromFile("products.txt");
+//		String optionGender = null;
+//		String optionType = null;
+//		int[] indexes = null;
+//
+//		if (userInput <= 3 && userInput >= 1) {
+//			optionGender = "Men";
+//		} else if (userInput <= 6) {
+//			optionGender = "Women";
+//		}
+//
+//		if (userInput == 1 || userInput == 4) {
+//			optionType = "Tops";
+//		} else if (userInput == 2 || userInput == 5) {
+//			optionType = "Bottoms";
+//		} else if (userInput == 3 || userInput == 6) {
+//			optionType = "Shoes";
+//		}
+//
+//		for (int i = 0; i < productList.size(); i++) {
+//			String[] b = productList.get(1).toString().split(",");
+//			if (b[0].equalsIgnoreCase(optionGender + optionType)) {
+//				int j = 0;
+//				System.out.println(j + ". " + productList.get(i).toString());
+//				indexes[j] = i;
+//				j++;
+//			}
+//		}
+//
+//		return indexes;
+//	}
+

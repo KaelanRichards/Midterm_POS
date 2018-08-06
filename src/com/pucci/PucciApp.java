@@ -2,16 +2,11 @@ package com.pucci;
 
 import java.util.Scanner;
 
-
-
 public class PucciApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		
-		
-	
-
 
 		// All variable declarations
 		int menuChoice;
@@ -20,8 +15,8 @@ public class PucciApp {
 		double subTotal;
 		double grandTotal;
 
-		System.out.println("Welcome to Pucci");
-		System.out.println("Feel free to browse our shop");
+//		System.out.println("Welcome to Pucci");
+//		System.out.println("Feel free to browse our shop");
 
 		do {
 
@@ -34,13 +29,22 @@ public class PucciApp {
 			// This method call will navigate to whichever category the user chose
 			getMenuChoice(menuChoice);
 
-			// validate user input for which item they would like
-			userProductChoice = Validator.getInt(scan,
-					"Please select the number to add product to your shopping cart: ");
-
-			// This method will take in the category and specific product user would like
+			//This method will take in the category and specific product user would like
 			// and add it to cart
-			putProductInCart(menuChoice, userProductChoice);
+			if (menuChoice == 7) {
+				break;
+			} else {
+				// validate user input for which item they would like
+				System.out.println("0. Return");
+				userProductChoice = Validator.getInt(scan,
+						"Please select the number to add product to your shopping cart: ");
+				if (userProductChoice == 0) {
+						continue;
+				} else {
+					putProductInCart(menuChoice, userProductChoice);
+				}
+			}
+			
 
 			// View Shopping Cart
 			System.out.println();
@@ -51,31 +55,29 @@ public class PucciApp {
 
 			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
 
-		} while (cont.equalsIgnoreCase("y"));
+		} while (cont.equalsIgnoreCase("y") );
 
-		// TODO This is not working yet
+		
+		
 		subTotal = ShoppingCart.subTotalCart();
-		System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
-		System.out.println("Your subtotal is: $" + Math.round(subTotal));
-		grandTotal = ShoppingCart.grandTotalCart();
-		System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
+		// payment info) 
+		if (subTotal != 0) {
+			// TODO This is not working yet
+			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
+			System.out.println("Your subtotal is: $" + Math.round(subTotal));
+			grandTotal = ShoppingCart.grandTotalCart();
+			System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
+			// Prompt user for payment (cash, check, charge) (Validator class)
+			payment(scan, grandTotal);
+			scan.nextLine();
+			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
+			if (receipt.equalsIgnoreCase("y")) {
+				System.out.println("Here is your receipt");
+				ShoppingCart.viewCart();
+				ShoppingCart.checkoutCart(subTotal, grandTotal, "");
 
-		
-
-		// Prompt user for payment (cash, check, charge) (Validator class)
-		 payment(scan, grandTotal);
-
-		
-		// payment info)
-		
-		String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
-		if (receipt.equalsIgnoreCase("y")) {
-			System.out.println("Here is your receipt");
-			ShoppingCart.viewCart();
-			ShoppingCart.checkoutCart(subTotal, grandTotal, "");
-			
+			} 
 		}
-		
 		System.out.println("Have a Pucci day");
 
 	}
@@ -105,7 +107,7 @@ public class PucciApp {
 
 	public static void putProductInCart(int menuChoice, int productChoice) {
 		// getMenuChoice(menuChoice);
-
+		
 		switch (menuChoice) {
 		case 1:
 			Tops.getMenTopsToCart(productChoice);
@@ -156,9 +158,9 @@ public class PucciApp {
 		case 6:
 			Shoes.printWomenShoes();
 			break;
-		case 7:
-			System.out.println("quit");
-			break;
+//		case 7:
+//			System.out.println("quit");
+//			break;
 
 		}
 	}
