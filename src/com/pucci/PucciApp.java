@@ -148,6 +148,7 @@ public class PucciApp {
 
 	public static void getMenuChoice(int userInput) {
 		String genderType = null;
+		int j = 1;
 
 		if (userInput <= 3 & userInput >= 1) {
 			genderType = "Men";
@@ -170,7 +171,8 @@ public class PucciApp {
 			singleProduct = inventory.get(i).toString().split(",");
 
 			if (singleProduct[0].equals(genderType)) {
-				System.out.println(singleProduct[1] + " $" + singleProduct[2]);
+				System.out.println(j + ". " + singleProduct[1] + " $" + singleProduct[2]);
+				j +=1;
 			}
 		}
 

@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class TestMainCamila {
 
+	private static int[] indexes;
+
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 
@@ -14,6 +16,8 @@ public class TestMainCamila {
 		String cont = "y";
 		double subTotal;
 		double grandTotal;
+//		String paymentMethod;
+		int[] indexes = null;
 
 		// System.out.println("Welcome to Pucci");
 		// System.out.println("Feel free to browse our shop");
@@ -23,11 +27,14 @@ public class TestMainCamila {
 			// Using method in main to print the category menu
 			printFirstMenu();
 
+			System.out.println(); // Line space for readability
+
 			// Getting user input to pick which category they would like to explore
 			menuChoice = Validator.getInt(scan, "Please select the number of which category you would like: ", 1, 7);
 
 			// This method call will navigate to whichever category the user chose
-			getMenuChoice(menuChoice);
+			getMenuChoice(menuChoice, indexes);
+			System.out.println("\n" + indexes.toString());
 
 			// This method will take in the category and specific product user would like
 			// and add it to cart
@@ -36,12 +43,15 @@ public class TestMainCamila {
 			} else {
 				// validate user input for which item they would like
 				System.out.println("0. Return");
+
+				System.out.println(); // Line space for readability
+
 				userProductChoice = Validator.getInt(scan,
 						"Please select the number to add product to your shopping cart: ");
 				if (userProductChoice == 0) {
 					continue;
 				} else {
-					putProductInCart(menuChoice, userProductChoice);
+					putProductInCart(userProductChoice);
 				}
 			}
 
@@ -50,6 +60,7 @@ public class TestMainCamila {
 			System.out.println("SHOPPING CART");
 			System.out.println("=========================");
 			ShoppingCart.viewCart();
+			System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart());
 			System.out.println();
 
 			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
@@ -65,17 +76,21 @@ public class TestMainCamila {
 			grandTotal = ShoppingCart.grandTotalCart();
 			System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
 			// Prompt user for payment (cash, check, charge) (Validator class)
-			payment(scan, grandTotal);
-			scan.nextLine();
+
+			System.out.println(); // Line space for readability
+
+			String userPay = payment(scan, grandTotal);
+
+
 			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
 			if (receipt.equalsIgnoreCase("y")) {
 				System.out.println("Here is your receipt");
 				ShoppingCart.viewCart();
-				ShoppingCart.checkoutCart(subTotal, grandTotal, "");
+				ShoppingCart.checkoutCart(subTotal, grandTotal, userPay);
 
 			}
 		}
-		System.out.println("Have a Pucci day");
+		System.out.println("Your puchase today is so Pucci!");
 
 	}
 
@@ -90,41 +105,45 @@ public class TestMainCamila {
 
 		if (userPayChoice.equals("1")) {
 			System.out.println("Your change is " + (PaymentValidation.usersChange(sumTotal, scan)) + " Dollars.");
+			userPayChoice = "Cash";
 		} else if (userPayChoice.equals("2")) {
-			if (PaymentValidation.isValidCheck(scan)) {
-				System.out.println("Your purchase was approved.");
-			}
+			PaymentValidation.isValidCheck(scan);
+			System.out.println("Your purchase was approved.");
+			userPayChoice = "Check";
 		} else if (userPayChoice.equals("3")) {
-			if (PaymentValidation.isValidCard(scan)) {
-			}
+			PaymentValidation.isValidCard(scan);
+			userPayChoice = "Credit Card";
 		}
 		return userPayChoice;
 	}
 
-	public static void putProductInCart(int menuChoice, int productChoice) {
+	public static void putProductInCart(int productChoice) {
 		// getMenuChoice(menuChoice);
+		
+//		extracted(indexes)
+//		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get());
 
-		switch (menuChoice) {
-		case 1:
-			Tops.getMenTopsToCart(productChoice);
-			break;
-		case 2:
-			Bottoms.getMenBottomsToCart(productChoice);
-			break;
-		case 3:
-			Shoes.getMenShoesToCart(productChoice);
-			ShoppingCart.viewCart();
-			break;
-		case 4:
-			Tops.getWomenTopsToCart(productChoice);
-			break;
-		case 5:
-			Bottoms.getWomenBottomsToCart(productChoice);
-			break;
-		case 6:
-			Shoes.getWomenShoesToCart(productChoice);
-			break;
-		}
+//		switch (menuChoice) {
+//		case 1:
+//			Tops.getMenTopsToCart(productChoice);
+//			break;
+//		case 2:
+//			Bottoms.getMenBottomsToCart(productChoice);
+//			break;
+//		case 3:
+//			Shoes.getMenShoesToCart(productChoice);
+//			ShoppingCart.viewCart();
+//			break;
+//		case 4:
+//			Tops.getWomenTopsToCart(productChoice);
+//			break;
+//		case 5:
+//			Bottoms.getWomenBottomsToCart(productChoice);
+//			break;
+//		case 6:
+//			Shoes.getWomenShoesToCart(productChoice);
+//			break;
+//		}
 
 		// for (int i = 0; i < 6 ; i++) {
 		// if((i+1) == userProductChoice) {
@@ -134,8 +153,9 @@ public class TestMainCamila {
 		// }
 	}
 
-	public static void getMenuChoice(int userInput) {
+	public static void getMenuChoice(int userInput, int[] indexes) {
 		String genderType = null;
+		int j = 1;
 
 		if (userInput <= 3 & userInput >= 1) {
 			genderType = "Men";
@@ -158,11 +178,17 @@ public class TestMainCamila {
 			singleProduct = inventory.get(i).toString().split(",");
 
 			if (singleProduct[0].equals(genderType)) {
-				System.out.println(singleProduct[1] + " $" + singleProduct[2]);
+				System.out.println(j + ". " + singleProduct[1] + " $" + singleProduct[2]);
+				indexes[j - 1] = i;
+				j +=1;
 			}
 		}
-
 	}
+
+//	private static int[] extracted(int[] indexes) {
+//		return indexes;
+//	}
+
 
 	public static void printFirstMenu() {
 		String[] firstMenu = { "Men \t\t Women", "1.Top \t\t 4.Top", "2.Bottoms \t 5.Bottoms", "3.Shoes \t 6.Shoes",
@@ -174,17 +200,3 @@ public class TestMainCamila {
 	}
 
 }
-//
-// for (int i = 0; i < productList.size(); i++) {
-// String[] b = productList.get(0).toString().split(",");
-// System.out.println(b[0]);
-// if (b[0].equalsIgnoreCase(optionGender + optionType)) {
-// int j = 0;
-// System.out.println(j + ". " + productList.get(i).toString());
-// indexes[j] = i;
-// j++;
-// }
-// }
-//
-// return indexes;
-// }
