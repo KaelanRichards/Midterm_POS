@@ -1,12 +1,12 @@
 package com.pucci;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestMainCamila {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		
 
 		// All variable declarations
 		int menuChoice;
@@ -14,10 +14,9 @@ public class TestMainCamila {
 		String cont = "y";
 		double subTotal;
 		double grandTotal;
-		String exit = null;
 
-//		System.out.println("Welcome to Pucci");
-//		System.out.println("Feel free to browse our shop");
+		// System.out.println("Welcome to Pucci");
+		// System.out.println("Feel free to browse our shop");
 
 		do {
 
@@ -30,8 +29,7 @@ public class TestMainCamila {
 			// This method call will navigate to whichever category the user chose
 			getMenuChoice(menuChoice);
 
-			// TODO New Stuff
-			//This method will take in the category and specific product user would like
+			// This method will take in the category and specific product user would like
 			// and add it to cart
 			if (menuChoice == 7) {
 				break;
@@ -41,12 +39,11 @@ public class TestMainCamila {
 				userProductChoice = Validator.getInt(scan,
 						"Please select the number to add product to your shopping cart: ");
 				if (userProductChoice == 0) {
-						continue;
+					continue;
 				} else {
 					putProductInCart(menuChoice, userProductChoice);
 				}
 			}
-			
 
 			// View Shopping Cart
 			System.out.println();
@@ -57,13 +54,10 @@ public class TestMainCamila {
 
 			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
 
-		} while (cont.equalsIgnoreCase("y") );
+		} while (cont.equalsIgnoreCase("y"));
 
-		
-		
 		subTotal = ShoppingCart.subTotalCart();
-		// payment info) 
-		//TODO NEW Stuff
+		// payment info)
 		if (subTotal != 0) {
 			// TODO This is not working yet
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
@@ -79,14 +73,13 @@ public class TestMainCamila {
 				ShoppingCart.viewCart();
 				ShoppingCart.checkoutCart(subTotal, grandTotal, "");
 
-			} 
+			}
 		}
 		System.out.println("Have a Pucci day");
 
 	}
-	
-	
-	//CUSTOM METHODS START BELOW//
+
+	// CUSTOM METHODS START BELOW//
 
 	public static String payment(Scanner scan, double sumTotal) {
 		String userPayChoice;
@@ -102,7 +95,7 @@ public class TestMainCamila {
 				System.out.println("Your purchase was approved.");
 			}
 		} else if (userPayChoice.equals("3")) {
-			if (PaymentValidation.isValidCard(scan)){
+			if (PaymentValidation.isValidCard(scan)) {
 			}
 		}
 		return userPayChoice;
@@ -110,7 +103,7 @@ public class TestMainCamila {
 
 	public static void putProductInCart(int menuChoice, int productChoice) {
 		// getMenuChoice(menuChoice);
-		
+
 		switch (menuChoice) {
 		case 1:
 			Tops.getMenTopsToCart(productChoice);
@@ -142,30 +135,33 @@ public class TestMainCamila {
 	}
 
 	public static void getMenuChoice(int userInput) {
-		switch (userInput) {
-		case 1:
-			Tops.printMenTops();
-			break;
-		case 2:
-			Bottoms.printMenBottoms();
-			break;
-		case 3:
-			Shoes.printMenShoes();
-			break;
-		case 4:
-			Tops.printWomenTops();
-			break;
-		case 5:
-			Bottoms.printWomenBottoms();
-			break;
-		case 6:
-			Shoes.printWomenShoes();
-			break;
-//		case 7:
-//			System.out.println("quit");
-//			break;
+		String genderType = null;
 
+		if (userInput <= 3 & userInput >= 1) {
+			genderType = "Men";
+		} else if (userInput <= 6) {
+			genderType = "Women";
 		}
+
+		if (userInput == 1 || userInput == 4) {
+			genderType += "Tops";
+		} else if (userInput == 2 || userInput == 5) {
+			genderType += "Bottom";
+		} else if (userInput == 3 || userInput == 6) {
+			genderType += "Shoes";
+		}
+
+		ArrayList<Clothes> inventory = FileMethods.readFromFile("Products.txt");
+		String[] singleProduct;
+
+		for (int i = 0; i < inventory.size(); i++) {
+			singleProduct = inventory.get(i).toString().split(",");
+
+			if (singleProduct[0].equals(genderType)) {
+				System.out.println(singleProduct[1] + " $" + singleProduct[2]);
+			}
+		}
+
 	}
 
 	public static void printFirstMenu() {
@@ -173,46 +169,22 @@ public class TestMainCamila {
 				"\t 7.Exit" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);
-				
+
 		}
 	}
 
 }
-
-
-
-
-//	public static int[] getMenuChoice(int userInput) {
 //
-//		ArrayList<Clothes> productList = FileMethods.readFromFile("products.txt");
-//		String optionGender = null;
-//		String optionType = null;
-//		int[] indexes = null;
+// for (int i = 0; i < productList.size(); i++) {
+// String[] b = productList.get(0).toString().split(",");
+// System.out.println(b[0]);
+// if (b[0].equalsIgnoreCase(optionGender + optionType)) {
+// int j = 0;
+// System.out.println(j + ". " + productList.get(i).toString());
+// indexes[j] = i;
+// j++;
+// }
+// }
 //
-//		if (userInput <= 3 && userInput >= 1) {
-//			optionGender = "Men";
-//		} else if (userInput <= 6) {
-//			optionGender = "Women";
-//		}
-//
-//		if (userInput == 1 || userInput == 4) {
-//			optionType = "Tops";
-//		} else if (userInput == 2 || userInput == 5) {
-//			optionType = "Bottoms";
-//		} else if (userInput == 3 || userInput == 6) {
-//			optionType = "Shoes";
-//		}
-//
-//		for (int i = 0; i < productList.size(); i++) {
-//			String[] b = productList.get(1).toString().split(",");
-//			if (b[0].equalsIgnoreCase(optionGender + optionType)) {
-//				int j = 0;
-//				System.out.println(j + ". " + productList.get(i).toString());
-//				indexes[j] = i;
-//				j++;
-//			}
-//		}
-//
-//		return indexes;
-//	}
-
+// return indexes;
+// }

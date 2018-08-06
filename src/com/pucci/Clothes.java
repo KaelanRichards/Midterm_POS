@@ -9,19 +9,20 @@ package com.pucci;
 public class Clothes {
 
 	private String name;
-	private String type; //Tops Bottoms Shoes
+	private String qnt; //Tops Bottoms Shoes
 	private String price;
-	private String inventory; //Available product amount 
-	private String Gender;
+	private String size; //Available product amount 
+	private String gender;
 	
 	
 	
-	public Clothes(String gender, String name, String type, String price, String inventory) {
+	public Clothes(String gender, String name, String price, String qnt, String size) {
 		super();
+		this.gender = gender;
 		this.name = name;
-		this.type = type;
 		this.price = price;
-		this.inventory = inventory;
+		this.qnt = qnt;
+		this.size = size;
 		
 	}
 	/**
@@ -39,14 +40,14 @@ public class Clothes {
 	/**
 	 * @return the type
 	 */
-	public String getType() {
-		return type;
+	public String getQnt() {
+		return qnt;
 	}
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setQnt(String qnt) {
+		this.qnt = qnt;
 	}
 	/**
 	 * @return the price
@@ -63,21 +64,21 @@ public class Clothes {
 	/**
 	 * @return the inventory
 	 */
-	public String getInventory() {
-		return inventory;
+	public String getSize() {
+		return size;
 	}
 	/**
 	 * @param inventory the inventory to set
 	 */
-	public void setInventory(String inventory) {
-		this.inventory = inventory;
+	public void setSize(String size) {
+		this.size = size;
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return name + "," + price + "," + inventory;
+		return gender + "," + name + "," + price + "," + qnt + "," + size;
 	}
 	
 	

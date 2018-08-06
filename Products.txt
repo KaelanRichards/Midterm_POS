@@ -1,16 +1,16 @@
-MenTops,French Cuff,Tops,175.00,4,Medium
-MenTops,T-Shirt,Tops,95.00,2,Small
-MenTops,T-Shirt,Tops,95.00,1,Medium
-MenTops,Polo,Tops,125.00,2,Medium
-MenTops,Button Down,Tops,145.00,3,Medium
-MenShoes,Boat Shoes,Shoes,425.00,3,8
-MenShoes,Alligator Skin,Shoes,675.00,3,10
-MenBottom,Dress Slacks,Bottom,345.00,5,Medium
-MenBottom,Shorts,Bottom,225.00,2,Medium
-WomanTops,Blouse,Tops,145.00,2,Small
-WomanTops,Tank Top,Tops,65.00,3,Medium
-WomanTops,T-Shirt,Tops,85.00,3,Small
-WomenBottom,Skirt,Bottom,225.00,3,2
-WomenBottom,Jeans,Bottom,295.00,3,4
-WomenShoes,Stiletto's,Shoes,375.00,3,6
-WomenShoes,Wedges,Shoes,295.00,3,8
+MenTops,French Cuff,175.00,4,Medium
+MenTops,Graphic Tee,105.00,2,Small
+MenTops,T-Shirt,95.00,1,Medium
+MenTops,Polo,125.00,2,Medium
+MenTops,Button Down,145.00,3,Medium
+MenShoes,Boat Shoes,425.00,3,8
+MenShoes,Alligator Skin,675.00,3,10
+MenBottom,Dress Slacks,345.00,5,Medium
+MenBottom,Shorts,225.00,2,Medium
+WomenTops,Blouse,145.00,2,Small
+WomenTops,Tank Top,65.00,3,Medium
+WomenTops,T-Shirt,85.00,3,Small
+WomenBottom,Skirt,225.00,3,2
+WomenBottom,Jeans,295.00,3,4
+WomenShoes,Stiletto's,375.00,3,6
+WomenShoes,Wedges,295.00,3,8

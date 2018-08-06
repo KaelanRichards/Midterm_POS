@@ -38,7 +38,7 @@ public class FileMethods {
 
 				Clothes product = new Clothes(products[0], products[1], products[2], products[3], products[4]); // adding parsed elements to the object
 
-				productList.add(product); // adding the employee object to the list
+				productList.add(product); // adding the product object to the list
 
 				line = reader.readLine();
 			}
@@ -47,11 +47,11 @@ public class FileMethods {
 			System.out.println("Something went wrong");
 		}
 
-		for (Clothes c : productList) {
-
-			System.out.println(c);
-
-		}
+//		for (Clothes c : productList) {
+//
+//			System.out.println(c);
+//
+//		}
 		return productList;
 	}
 
@@ -76,7 +76,7 @@ public class FileMethods {
 
 				Clothes product = new Tops(products[0], products[1], products[2], products[3], products[4]); // adding the parsed elements to the object
 
-				productList.add(product); // adding the employee object to the list
+				productList.add(product); // adding the product object to the list
 
 				line = reader.readLine();
 			}
