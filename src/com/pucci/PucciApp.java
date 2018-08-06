@@ -1,5 +1,6 @@
 package com.pucci;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,11 +8,12 @@ public class PucciApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		DecimalFormat df = new DecimalFormat("0.00");
 
 		// All variable declarations
 		int menuChoice;
 		int userProductChoice = 0;
-		String cont = "y";
+		int cont = 0;
 		double subTotal;
 		double grandTotal;
 		String paymentMethod;
@@ -45,6 +47,7 @@ public class PucciApp {
 				userProductChoice = Validator.getInt(scan,
 						"Please select the number to add product to your shopping cart: ");
 				if (userProductChoice == 0) {
+					cont = 2;
 					continue;
 				} else {
 					putProductInCart(menuChoice, userProductChoice);
@@ -52,25 +55,48 @@ public class PucciApp {
 			}
 
 			// View Shopping Cart
-			System.out.println();
-			System.out.println("SHOPPING CART");
-			System.out.println("=========================");
-			ShoppingCart.viewCart();
-			System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart());
-			System.out.println();
-
-			cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
-
-		} while (cont.equalsIgnoreCase("y"));
-
-		subTotal = ShoppingCart.subTotalCart();
+			System.out.println("1. View shopping cart?");
+			System.out.println("2. Continue shopping? ");
+			cont = Validator.getInt(scan, " ");
+			if (cont == 1) {
+				// View Shopping Cart
+				displayShoppingCart();
+				
+				//cont2 = Validator.getString(scan, "Are you still shopping? (y/n)");
+				//cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
+				System.out.println("1. Edit Shopping Cart?");
+				System.out.println("2. Continue shopping?");
+				System.out.println("3. Checkout");
+				
+				cont = Validator.getInt(scan, " ");
+				
+				if (cont == 1) {
+					editShoppingCart();					
+					System.out.println("1. Remove Item?");
+					System.out.println("2. Continue shopping?");
+					cont = Validator.getInt(scan, " ");
+					if (cont == 1) {
+						int userEdit = 0;
+						userEdit = Validator.getInt(scan, "Enter the number of the item you would like to remove: ", 1, ShoppingCart.shoppingCart.size());
+					ShoppingCart.removeItem(userEdit);
+					displayShoppingCart();
+					
+					cont = 2;
+					}
+				}
+				
+			}
+			
+			
+		} while (cont == 2);
+		subTotal = (ShoppingCart.subTotalCart());
 		// payment info)
 		if (subTotal != 0) {
 			// TODO This is not working yet
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
-			System.out.println("Your subtotal is: $" + Math.round(subTotal));
+			System.out.println("Your subtotal is: $" + df.format(subTotal));
 			grandTotal = ShoppingCart.grandTotalCart();
-			System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
+			System.out.println("Your grandtotal is: $" + df.format(grandTotal));
 			// Prompt user for payment (cash, check, charge) (Validator class)
 
 			System.out.println(); // Line space for readability
@@ -80,7 +106,8 @@ public class PucciApp {
 
 			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
 			if (receipt.equalsIgnoreCase("y")) {
-				System.out.println("Here is your receipt");
+				System.out.println("\n RECEIPT Thank you for shopping at Pucci");
+				System.out.println("===========================================");
 				ShoppingCart.viewCart();
 				ShoppingCart.checkoutCart(subTotal, grandTotal, userPay);
 
@@ -90,9 +117,29 @@ public class PucciApp {
 
 	}
 
+	public static void editShoppingCart() {
+		System.out.println("SHOPPING CART");
+		System.out.println("====================================");
+		ShoppingCart.viewEditCart();
+		System.out.println("\n====================================");
+		System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart() + "\n");
+	}
+
+	public static void displayShoppingCart() {
+		System.out.println();
+		System.out.println("SHOPPING CART");
+		System.out.println("====================================");
+		ShoppingCart.viewCart();
+		System.out.println();
+		System.out.println("====================================");
+		System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart());
+		System.out.println();
+	}
+
 	// CUSTOM METHODS START BELOW//
 
 	public static String payment(Scanner scan, double sumTotal) {
+		DecimalFormat df = new DecimalFormat("0.00");
 		String userPayChoice;
 
 		System.out.println("Please select your method of payment: ");
@@ -100,7 +147,7 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println("Your change is " + (PaymentValidation.usersChange(sumTotal, scan)) + " Dollars.");
+			System.out.println("Your change is " + (df.format(PaymentValidation.usersChange(sumTotal, scan))) + " Dollars.");
 			userPayChoice = "Cash";
 		} else if (userPayChoice.equals("2")) {
 			PaymentValidation.isValidCheck(scan);
@@ -125,7 +172,6 @@ public class PucciApp {
 			break;
 		case 3:
 			Shoes.getMenShoesToCart(productChoice);
-			ShoppingCart.viewCart();
 			break;
 		case 4:
 			Tops.getWomenTopsToCart(productChoice);
@@ -181,7 +227,7 @@ public class PucciApp {
 
 	public static void printFirstMenu() {
 		String[] firstMenu = { "Men \t\t Women", "1.Top \t\t 4.Top", "2.Bottoms \t 5.Bottoms", "3.Shoes \t 6.Shoes",
-				"\t 7.Exit" };
+				"\t 7.Checkout" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);
 

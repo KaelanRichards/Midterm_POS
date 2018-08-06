@@ -3,6 +3,7 @@
  */
 package com.pucci;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,8 @@ import java.util.ArrayList;
  *
  */
 public class ShoppingCart {
+
+	
 
 	static ArrayList<Clothes> shoppingCart = new ArrayList<>();
 	// shoppingCart = null;
@@ -25,8 +28,8 @@ public class ShoppingCart {
 	// This class will read from the shopping cart text file and return a list
 	// It will then remove an item from list then overwrite old cart file with new
 	// list
-	public static void removeItem() {
-
+	public static void removeItem(int userEdit) {
+			shoppingCart.remove(userEdit - 1);
 	}
 
 	// This method will print the contents from your current shopping cart
@@ -35,7 +38,17 @@ public class ShoppingCart {
 		for (Clothes c : shoppingCart) {
 			System.out.println(c);
 		}
-
+	}
+		public static void viewEditCart() {
+			int i = 1;
+			for (Clothes c : shoppingCart) {
+				
+				System.out.print(i + ". ");
+				
+				System.out.println(c);
+				i++;
+			}
+		
 	}
 
 	// This method will return the grand total of your cart
@@ -76,20 +89,17 @@ public class ShoppingCart {
 	// return receipt information
 	//
 	public static void checkoutCart(double subTotal, double grandTotal, String paymentMethod) {
-		String sTotal;
-		String gTotal;
-
-		ArrayList<String> receipt = new ArrayList<>();
-
-		sTotal = Double.toString(subTotal);
-		gTotal = Double.toString(grandTotal);
-
-//		receipt.add(paymentMethod);
-//		receipt.add(gTotal);
-//		receipt.add(sTotal);
-//		System.out.println(receipt); 
+		DecimalFormat df = new DecimalFormat("0.00");
 		
-		System.out.println("You paid with " + paymentMethod + "\n" + "Your Subtotal was $" + sTotal + "\n" +  "Your grandtotal was $" + gTotal);
+//		String sTotal;
+//		String gTotal;
+
+
+//		sTotal = Double.toString(subTotal);
+//		gTotal = Double.toString(grandTotal);
+//	
+		
+		System.out.println("\nYou paid with " + paymentMethod + "\n" + "Subtotal... $" +  df.format(subTotal) + "\n" +  "Grandtotal... $" + df.format(grandTotal));
 	}
 
 }
