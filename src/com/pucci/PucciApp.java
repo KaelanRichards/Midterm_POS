@@ -57,7 +57,7 @@ public class PucciApp {
 			cont = Validator.getInt(scan, " ");
 			if (cont == 1) {
 				// View Shopping Cart
-				displayShoppingCart();
+				displayShoppingCart(df);
 
 				// cont2 = Validator.getString(scan, "Are you still shopping? (y/n)");
 				// cont = Validator.getString(scan, "Would you like to continue shopping (y/n):
@@ -69,7 +69,7 @@ public class PucciApp {
 				cont = Validator.getInt(scan, " ");
 
 				if (cont == 1) {
-					editShoppingCart();
+					editShoppingCart(df);
 					System.out.println("1. Remove Item?");
 					System.out.println("2. Continue shopping?");
 					cont = Validator.getInt(scan, " ");
@@ -78,7 +78,7 @@ public class PucciApp {
 						userEdit = Validator.getInt(scan, "Enter the number of the item you would like to remove: ", 1,
 								ShoppingCart.shoppingCart.size());
 						ShoppingCart.removeItem(userEdit);
-						displayShoppingCart();
+						displayShoppingCart(df);
 
 						cont = 2;
 					}
@@ -99,7 +99,7 @@ public class PucciApp {
 
 			System.out.println(); // Line space for readability
 
-			String userPay = payment(scan, grandTotal);
+			String userPay = payment(scan, grandTotal, df);
 
 			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
 			if (receipt.equalsIgnoreCase("y")) {
@@ -114,29 +114,28 @@ public class PucciApp {
 
 	}
 
-	public static void editShoppingCart() {
+	public static void editShoppingCart(DecimalFormat df) {
 		System.out.println("SHOPPING CART");
 		System.out.println("====================================");
 		ShoppingCart.viewEditCart();
 		System.out.println("\n====================================");
-		System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart() + "\n");
+		System.out.println("Your current subtotal is: " + df.format(ShoppingCart.subTotalCart()) + "\n");
 	}
 
-	public static void displayShoppingCart() {
+	public static void displayShoppingCart(DecimalFormat df) {
 		System.out.println();
 		System.out.println("SHOPPING CART");
 		System.out.println("====================================");
 		ShoppingCart.viewCart();
 		System.out.println();
 		System.out.println("====================================");
-		System.out.println("Your current subtotal is: " + ShoppingCart.subTotalCart());
+		System.out.println("Your current subtotal is: " + df.format(ShoppingCart.subTotalCart()));
 		System.out.println();
 	}
 
 	// CUSTOM METHODS START BELOW//
 
-	public static String payment(Scanner scan, double sumTotal) {
-		DecimalFormat df = new DecimalFormat("0.00");
+	public static String payment(Scanner scan, double sumTotal, DecimalFormat df) {
 		String userPayChoice;
 
 		System.out.println("Please select your method of payment: ");
