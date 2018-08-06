@@ -1,11 +1,10 @@
 package com.pucci;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TestMainCamila {
-
-	private static int[] indexes;
+public class TestMainCamila{
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
@@ -16,8 +15,9 @@ public class TestMainCamila {
 		String cont = "y";
 		double subTotal;
 		double grandTotal;
-//		String paymentMethod;
-		int[] indexes = null;
+		String paymentMethod;
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		DecimalFormat decFor = new DecimalFormat("0.00");
 
 		// System.out.println("Welcome to Pucci");
 		// System.out.println("Feel free to browse our shop");
@@ -34,7 +34,7 @@ public class TestMainCamila {
 
 			// This method call will navigate to whichever category the user chose
 			getMenuChoice(menuChoice, indexes);
-			System.out.println("\n" + indexes.toString());
+			
 
 			// This method will take in the category and specific product user would like
 			// and add it to cart
@@ -46,12 +46,11 @@ public class TestMainCamila {
 
 				System.out.println(); // Line space for readability
 
-				userProductChoice = Validator.getInt(scan,
-						"Please select the number to add product to your shopping cart: ");
+				userProductChoice = Validator.getInt(scan, "Please select the number to add product to your shopping cart: ", 1, indexes.size());
 				if (userProductChoice == 0) {
 					continue;
 				} else {
-					putProductInCart(userProductChoice);
+					putProductInCart(indexes, userProductChoice);
 				}
 			}
 
@@ -72,7 +71,8 @@ public class TestMainCamila {
 		if (subTotal != 0) {
 			// TODO This is not working yet
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
-			System.out.println("Your subtotal is: $" + Math.round(subTotal));
+			System.out.println("MUDANCA AQUI MUDANCA AQUI");
+			System.out.println("Your subtotal is: $" + decFor.format(subTotal));
 			grandTotal = ShoppingCart.grandTotalCart();
 			System.out.println("Your grandtotal is: $" + Math.round(grandTotal));
 			// Prompt user for payment (cash, check, charge) (Validator class)
@@ -117,11 +117,11 @@ public class TestMainCamila {
 		return userPayChoice;
 	}
 
-	public static void putProductInCart(int productChoice) {
+	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice) {
 		// getMenuChoice(menuChoice);
 		
-//		extracted(indexes)
-//		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get());
+		int i = indexes.get(productChoice - 1);
+		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
 
 //		switch (menuChoice) {
 //		case 1:
@@ -153,7 +153,7 @@ public class TestMainCamila {
 		// }
 	}
 
-	public static void getMenuChoice(int userInput, int[] indexes) {
+	public static void getMenuChoice(int userInput, ArrayList<Integer> indexes) {
 		String genderType = null;
 		int j = 1;
 
@@ -179,15 +179,12 @@ public class TestMainCamila {
 
 			if (singleProduct[0].equals(genderType)) {
 				System.out.println(j + ". " + singleProduct[1] + " $" + singleProduct[2]);
-				indexes[j - 1] = i;
+				indexes.add(i);
 				j +=1;
 			}
 		}
-	}
 
-//	private static int[] extracted(int[] indexes) {
-//		return indexes;
-//	}
+	}
 
 
 	public static void printFirstMenu() {

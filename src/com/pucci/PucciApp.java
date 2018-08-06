@@ -16,10 +16,7 @@ public class PucciApp {
 		int cont = 0;
 		double subTotal;
 		double grandTotal;
-		String paymentMethod;
-
-		// System.out.println("Welcome to Pucci");
-		// System.out.println("Feel free to browse our shop");
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
 
 		do {
 
@@ -32,7 +29,7 @@ public class PucciApp {
 			menuChoice = Validator.getInt(scan, "Please select the number of which category you would like: ", 1, 7);
 
 			// This method call will navigate to whichever category the user chose
-			getMenuChoice(menuChoice);
+			getMenuChoice(menuChoice, indexes);
 
 			// This method will take in the category and specific product user would like
 			// and add it to cart
@@ -50,7 +47,7 @@ public class PucciApp {
 					cont = 2;
 					continue;
 				} else {
-					putProductInCart(menuChoice, userProductChoice);
+					putProductInCart(indexes, userProductChoice);
 				}
 			}
 
@@ -61,33 +58,34 @@ public class PucciApp {
 			if (cont == 1) {
 				// View Shopping Cart
 				displayShoppingCart();
-				
-				//cont2 = Validator.getString(scan, "Are you still shopping? (y/n)");
-				//cont = Validator.getString(scan, "Would you like to continue shopping (y/n): ");
+
+				// cont2 = Validator.getString(scan, "Are you still shopping? (y/n)");
+				// cont = Validator.getString(scan, "Would you like to continue shopping (y/n):
+				// ");
 				System.out.println("1. Edit Shopping Cart?");
 				System.out.println("2. Continue shopping?");
 				System.out.println("3. Checkout");
-				
+
 				cont = Validator.getInt(scan, " ");
-				
+
 				if (cont == 1) {
-					editShoppingCart();					
+					editShoppingCart();
 					System.out.println("1. Remove Item?");
 					System.out.println("2. Continue shopping?");
 					cont = Validator.getInt(scan, " ");
 					if (cont == 1) {
 						int userEdit = 0;
-						userEdit = Validator.getInt(scan, "Enter the number of the item you would like to remove: ", 1, ShoppingCart.shoppingCart.size());
-					ShoppingCart.removeItem(userEdit);
-					displayShoppingCart();
-					
-					cont = 2;
+						userEdit = Validator.getInt(scan, "Enter the number of the item you would like to remove: ", 1,
+								ShoppingCart.shoppingCart.size());
+						ShoppingCart.removeItem(userEdit);
+						displayShoppingCart();
+
+						cont = 2;
 					}
 				}
-				
+
 			}
-			
-			
+
 		} while (cont == 2);
 		subTotal = (ShoppingCart.subTotalCart());
 		// payment info)
@@ -102,7 +100,6 @@ public class PucciApp {
 			System.out.println(); // Line space for readability
 
 			String userPay = payment(scan, grandTotal);
-
 
 			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
 			if (receipt.equalsIgnoreCase("y")) {
@@ -147,7 +144,8 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println("Your change is " + (df.format(PaymentValidation.usersChange(sumTotal, scan))) + " Dollars.");
+			System.out.println(
+					"Your change is " + (df.format(PaymentValidation.usersChange(sumTotal, scan))) + " Dollars.");
 			userPayChoice = "Cash";
 		} else if (userPayChoice.equals("2")) {
 			PaymentValidation.isValidCheck(scan);
@@ -160,39 +158,13 @@ public class PucciApp {
 		return userPayChoice;
 	}
 
-	public static void putProductInCart(int menuChoice, int productChoice) {
-		// getMenuChoice(menuChoice);
+	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice) {
 
-		switch (menuChoice) {
-		case 1:
-			Tops.getMenTopsToCart(productChoice);
-			break;
-		case 2:
-			Bottoms.getMenBottomsToCart(productChoice);
-			break;
-		case 3:
-			Shoes.getMenShoesToCart(productChoice);
-			break;
-		case 4:
-			Tops.getWomenTopsToCart(productChoice);
-			break;
-		case 5:
-			Bottoms.getWomenBottomsToCart(productChoice);
-			break;
-		case 6:
-			Shoes.getWomenShoesToCart(productChoice);
-			break;
-		}
-
-		// for (int i = 0; i < 6 ; i++) {
-		// if((i+1) == userProductChoice) {
-		//
-		// ShoppingCart.addItem(FileMethods.readFromFileTops("Products.txt").get(i));
-		// }
-		// }
+		int i = indexes.get(productChoice - 1);
+		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
 	}
 
-	public static void getMenuChoice(int userInput) {
+	public static void getMenuChoice(int userInput, ArrayList<Integer> indexes) {
 		String genderType = null;
 		int j = 1;
 
@@ -218,12 +190,12 @@ public class PucciApp {
 
 			if (singleProduct[0].equals(genderType)) {
 				System.out.println(j + ". " + singleProduct[1] + " $" + singleProduct[2]);
-				j +=1;
+				indexes.add(i);
+				j += 1;
 			}
 		}
 
 	}
-
 
 	public static void printFirstMenu() {
 		String[] firstMenu = { "Men \t\t Women", "1.Top \t\t 4.Top", "2.Bottoms \t 5.Bottoms", "3.Shoes \t 6.Shoes",
