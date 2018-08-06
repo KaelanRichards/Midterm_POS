@@ -65,7 +65,7 @@ public class ShoppingCart {
 
 
 			double doublePrice = Double.parseDouble(newProductList[1]);
-			System.out.println(Double.parseDouble(newProductList[1]));
+			//System.out.println(Double.parseDouble(newProductList[1]));
 
 			total += doublePrice;
 		}
@@ -89,7 +89,7 @@ public class ShoppingCart {
 //		receipt.add(sTotal);
 //		System.out.println(receipt); 
 		
-		System.out.println("You paid with " + paymentMethod + "- Your Subtotal was " + sTotal + "- Your grandtotal was " + gTotal);
+		System.out.println("You paid with " + paymentMethod + "\n" + "Your Subtotal was $" + sTotal + "\n" +  "Your grandtotal was $" + gTotal);
 	}
 
 }

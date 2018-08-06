@@ -156,8 +156,10 @@ public class PaymentValidation {
 		double usersMoney;
 
 		do {
-			System.out.println("Please enter the amount: ");
-			usersMoney = scan.nextDouble();
+			usersMoney = Validator.getDouble(scan, "Please enter the amount of cash tendered: ");
+			
+//			System.out.println("Please enter the amount of cash tendered: ");
+//			usersMoney = scan.nextDouble();
 			if (usersMoney < sumTotal) {
 				System.out.println("The amount needs to be greater or equal to: " + sumTotal);
 			}

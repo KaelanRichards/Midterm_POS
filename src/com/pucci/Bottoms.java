@@ -39,7 +39,7 @@ public class Bottoms extends Clothes {
 
 		int i = 1;
 		for (Clothes c : wBottomList) {
-
+			
 			System.out.println(i + ". " + c);
 			i++;
 		}
@@ -95,10 +95,10 @@ public class Bottoms extends Clothes {
 		}
 	}
 
-//	@Override
-//	public String toString() {
-//
-//		return String.format("%-18s  %-18s", getName(), (getPrice()));
-//		
-	}
+	@Override
+	public String toString() {
 
+		//return String.format("%-18s  %-18s", getName(), (getPrice()));
+		return getName() + ", " + "\t" + "\t" + getPrice();
+	}
+}
