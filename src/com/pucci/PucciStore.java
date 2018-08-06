@@ -107,9 +107,5 @@ public class PucciStore {
 		button_2.setFont(new Font("Ink Free", Font.BOLD, 22));
 		button_2.setBounds(530, 357, 149, 43);
 		frame.getContentPane().add(button_2);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(391, 140, 115, 29);
-		frame.getContentPane().add(btnNewButton);
 	}
 }
