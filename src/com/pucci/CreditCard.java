@@ -33,6 +33,8 @@ public enum CreditCard {
 	public static String getMatchingCreditCard(String cardNumber, String securityCode) {
 		String cardCompany = null;
 		
+		System.out.println("\n" + cardNumber);
+		
 		if(cardNumber.matches(MASTERCARD.cardRegex) && securityCode.matches(MASTERCARD.codeRegex)) {
 			cardCompany = "MasterCard";
 		} else if (cardNumber.matches(VISA.cardRegex) && securityCode.matches(VISA.codeRegex)) {

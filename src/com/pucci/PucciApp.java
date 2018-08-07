@@ -16,8 +16,10 @@ public class PucciApp {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
+		
 		DecimalFormat df = new DecimalFormat("0.00");
-
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		
 		// Variable declarations
 		int menuChoice;
 		int userProductChoice = 0;
@@ -25,7 +27,7 @@ public class PucciApp {
 		double subTotal;
 		double grandTotal;
 		int userQty;
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		
 		
 		System.out.println("\nWelcome to the Pucci Store\n");
 

@@ -9,6 +9,14 @@ import java.util.Scanner;
  */
 
 public class PaymentValidation {
+	
+	
+	public static void main (String[] args) {
+		
+		Scanner scan = new Scanner (System.in);
+		isValidCard(scan);
+		
+	}
 
 	/**
 	 * @param Scanner
