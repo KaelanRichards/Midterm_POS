@@ -15,6 +15,7 @@ public class PaymentValidation {
 	 *            scan
 	 * @return boolean
 	 */
+	//Calling all the methods that validate the card
 	public static boolean isValidCard(Scanner scan) {
 
 		boolean isValidCard = false;
@@ -51,6 +52,7 @@ public class PaymentValidation {
 	 *            cardNumber
 	 * @return boolean
 	 */
+	//Validating the Luhn algorithm
 	public static boolean isValidLuhn(String cardNumber) {
 		int cardSum = 0;
 		int i;
@@ -89,6 +91,7 @@ public class PaymentValidation {
 	 *            expirationDate
 	 * @return boolean
 	 */
+	// Comparing today's date with the expiration date
 	public static boolean isValidDate(String expirationDate) {
 
 		boolean isValid = false;
@@ -116,6 +119,7 @@ public class PaymentValidation {
 	 *            scan
 	 * @return boolean
 	 */
+	// Validating the check numbers
 	public static boolean isValidCheck(Scanner scan) {
 
 		boolean isValid = false;
@@ -149,6 +153,7 @@ public class PaymentValidation {
 	 *            scan
 	 * @return double
 	 */
+	// Getting the value of the users change
 	public static double usersChange(double sumTotal, Scanner scan) {
 
 		double usersMoney;

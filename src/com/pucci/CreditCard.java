@@ -4,6 +4,7 @@ package com.pucci;
  * @author Camila Brasil
  *
  */
+//The first regex verify the first digitis and the lenght and the second is validatig the lenght of the security code
 public enum CreditCard {
 	
 	MASTERCARD ("^([5]{1})([1-5]{1})[0-9]{14}", "^([0-9]{3})"),
@@ -28,6 +29,7 @@ public enum CreditCard {
 	 * @param securityCode
 	 * @return
 	 */
+	// Finding a matching card
 	public static String getMatchingCreditCard(String cardNumber, String securityCode) {
 		String cardCompany = null;
 		

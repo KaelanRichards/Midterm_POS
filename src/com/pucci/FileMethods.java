@@ -34,7 +34,6 @@ public class FileMethods {
 		
 			while (line != null) {
 				products = line.split(","); // parsing the data from the file
-				// if (products.length()
 
 				Clothes product = new Clothes(products[0], products[1], products[2], products[3], products[4]); // adding parsed elements to the object
 

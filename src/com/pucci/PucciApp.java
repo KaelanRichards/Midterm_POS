@@ -18,7 +18,7 @@ public class PucciApp {
 		Scanner scan = new Scanner(System.in);
 		DecimalFormat df = new DecimalFormat("0.00");
 
-		// All variable declarations
+		// Variable declarations
 		int menuChoice;
 		int userProductChoice = 0;
 		int cont = 0;
@@ -31,27 +31,25 @@ public class PucciApp {
 
 		do {
 
-			// Using method in main to print the category menu
+			// Print the category menu
 			printFirstMenu();
 
-			System.out.println(); // Line space for readability
+			// Line space for readability
+			System.out.println(); 
 
 			// Getting user input to pick which category they would like to explore
 			menuChoice = Validator.getInt(scan, "Please select the number of which category you would like: ", 1, 7);
 
-			// This method call will navigate to whichever category the user chose
+			// Printing the users category choice
 			getMenuChoice(menuChoice, indexes);
 
-			// This method will take in the category and specific product user would like
-			// and add it to cart
+			// Taking in the category and specific product user would like and add it to cart
 			if (menuChoice == 7) {
 				break;
 			} else {
-				// validate user input for which item they would like
-				System.out.println("0. Return");
-
-				System.out.println(); // Line space for readability
-
+				System.out.println("0. Return\n");
+				
+				// Validating user input for which item they would like
 				userProductChoice = Validator.getInt(scan,
 						"Please select the number to add product " + "to your shopping cart: ", 0, indexes.size());
 
@@ -67,7 +65,6 @@ public class PucciApp {
 			// Cleaning the indexes array for the next products options
 			indexes.clear();
 
-			// View Shopping Cart
 			System.out.println("1. View shopping cart?");
 			System.out.println("2. Continue shopping? ");
 			cont = Validator.getInt(scan, " ");
@@ -103,16 +100,17 @@ public class PucciApp {
 		
 		subTotal = (ShoppingCart.subTotalCart());
 		
-		// payment info
+		// Payment info
 		if (subTotal != 0) {
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
 			System.out.println("Your subtotal is: $" + df.format(subTotal));
 			grandTotal = ShoppingCart.grandTotalCart();
 			System.out.println("Your grandtotal is: $" + df.format(grandTotal));
-			// Prompt user for payment (cash, check, charge) (Validator class)
+			
 
 			System.out.println(); // Line space for readability
-
+			
+			// Prompt user for payment and validation
 			String userPay = payment(scan, grandTotal, df);
 
 			String receipt = Validator.getString(scan, "Would you like your reciept? (y/n)");
@@ -150,6 +148,7 @@ public class PucciApp {
 
 	// CUSTOM METHODS START BELOW//
 
+	// Selecting the right option and Validating
 	public static String payment(Scanner scan, double sumTotal, DecimalFormat df) {
 		String userPayChoice;
 
@@ -171,6 +170,7 @@ public class PucciApp {
 		return userPayChoice;
 	}
 
+	// Adding to the cart
 	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice, int userQty) {
 
 		int i = indexes.get(productChoice - 1);
@@ -178,6 +178,7 @@ public class PucciApp {
 		ShoppingCart.addItem(FileMethods.readFromFile("Products.txt").get(i), userQty);
 	}
 
+	// Searching in the txt file for the users choice of products 
 	public static void getMenuChoice(int userInput, ArrayList<Integer> indexes) {
 		String genderType = null;
 		int j = 1;
@@ -212,6 +213,7 @@ public class PucciApp {
 		}
 	}
 
+	// Printing the first menu
 	public static void printFirstMenu() {
 		String[] firstMenu = { "Men \t\t Women", "1. Tops \t 4. Tops", "2. Bottoms \t 5. Bottoms",
 				"3. Shoes \t 6. Shoes", "\t 7.Checkout" };
