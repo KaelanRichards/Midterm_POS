@@ -50,7 +50,7 @@ public class PucciApp {
 				System.out.println(); // Line space for readability
 
 				userProductChoice = Validator.getInt(scan, "Please select the number to add product "
-														 + "to your shopping cart: ", 1, indexes.size());
+														 + "to your shopping cart: ", 0, indexes.size());
 				if (userProductChoice == 0) {
 					cont = 2;
 					continue;
@@ -171,7 +171,7 @@ public class PucciApp {
 
 		int i = indexes.get(productChoice - 1);
 		
-		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i), userQty);
+		ShoppingCart.addItem(FileMethods.readFromFile("Products.txt").get(i), userQty);
 	}
 
 	public static void getMenuChoice(int userInput, ArrayList<Integer> indexes) {
