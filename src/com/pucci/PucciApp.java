@@ -3,6 +3,13 @@ package com.pucci;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * @author CoderBoyKado
+ * @author Brandon Spencer
+ * @author Joseph Bojovic
+ * @author Camila Brasil
+ *
+ */
 
 public class PucciApp {
 
