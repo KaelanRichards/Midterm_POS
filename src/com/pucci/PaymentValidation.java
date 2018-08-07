@@ -135,11 +135,9 @@ public class PaymentValidation {
 				+ 7 * (checkDigits[1] + checkDigits[4] + checkDigits[7])
 				+ (checkDigits[2] + checkDigits[5] + checkDigits[8]);
 
-		// if (checkNum.matches(regex)) {
 		if (sumABA % 10 == 0) {
 			isValid = true;
 		}
-		// }
 
 		return isValid;
 	}

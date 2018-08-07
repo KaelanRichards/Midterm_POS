@@ -16,6 +16,7 @@ public class PucciApp {
 		int cont = 0;
 		double subTotal;
 		double grandTotal;
+		int userQty;
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
 
 		do {
@@ -41,14 +42,16 @@ public class PucciApp {
 
 				System.out.println(); // Line space for readability
 
-				userProductChoice = Validator.getInt(scan,
-						"Please select the number to add product to your shopping cart: ");
+				userProductChoice = Validator.getInt(scan, "Please select the number to add product "
+														 + "to your shopping cart: ", 1, indexes.size());
 				if (userProductChoice == 0) {
 					cont = 2;
 					continue;
-				} else {
-					putProductInCart(indexes, userProductChoice);
+				} else if (userProductChoice > 0 && userProductChoice < indexes.size()) {
+					userQty = Validator.getInt(scan, "Quantity?");
+					putProductInCart(indexes, userProductChoice, userQty);				
 				}
+				
 			}
 
 			// View Shopping Cart
@@ -90,7 +93,6 @@ public class PucciApp {
 		subTotal = (ShoppingCart.subTotalCart());
 		// payment info)
 		if (subTotal != 0) {
-			// TODO This is not working yet
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
 			System.out.println("Your subtotal is: $" + df.format(subTotal));
 			grandTotal = ShoppingCart.grandTotalCart();
@@ -106,11 +108,12 @@ public class PucciApp {
 				System.out.println("\n RECEIPT Thank you for shopping at Pucci");
 				System.out.println("===========================================");
 				ShoppingCart.viewCart();
+				System.out.println();
 				ShoppingCart.checkoutCart(subTotal, grandTotal, userPay);
 
 			}
 		}
-		System.out.println("Your puchase today is so Pucci!");
+		System.out.println("\nYour puchase today is so Pucci!");
 
 	}
 
@@ -119,7 +122,7 @@ public class PucciApp {
 		System.out.println("====================================");
 		ShoppingCart.viewEditCart();
 		System.out.println("\n====================================");
-		System.out.println("Your current subtotal is: " + df.format(ShoppingCart.subTotalCart()) + "\n");
+		System.out.println("Your current subtotal is: $" + df.format(ShoppingCart.subTotalCart()) + "\n");
 	}
 
 	public static void displayShoppingCart(DecimalFormat df) {
@@ -129,7 +132,7 @@ public class PucciApp {
 		ShoppingCart.viewCart();
 		System.out.println();
 		System.out.println("====================================");
-		System.out.println("Your current subtotal is: " + df.format(ShoppingCart.subTotalCart()));
+		System.out.println("Your current subtotal is: $" + df.format(ShoppingCart.subTotalCart()));
 		System.out.println();
 	}
 
@@ -144,7 +147,7 @@ public class PucciApp {
 
 		if (userPayChoice.equals("1")) {
 			System.out.println(
-					"Your change is " + (df.format(PaymentValidation.usersChange(sumTotal, scan))) + " Dollars.");
+					"Your change is $" + (df.format(PaymentValidation.usersChange(sumTotal, scan))));
 			userPayChoice = "Cash";
 		} else if (userPayChoice.equals("2")) {
 			PaymentValidation.isValidCheck(scan);
@@ -157,10 +160,11 @@ public class PucciApp {
 		return userPayChoice;
 	}
 
-	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice) {
+	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice, int userQty) {
 
 		int i = indexes.get(productChoice - 1);
-		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i));
+		
+		ShoppingCart.addItem(FileMethods.readFromFileShoes("Products.txt").get(i), userQty);
 	}
 
 	public static void getMenuChoice(int userInput, ArrayList<Integer> indexes) {
@@ -188,7 +192,9 @@ public class PucciApp {
 			singleProduct = inventory.get(i).toString().split(",");
 
 			if (singleProduct[0].equals(genderType)) {
-				System.out.println(j + ". " + singleProduct[1] + " $" + singleProduct[2]);
+				String one = j + ". " + singleProduct[1];
+				String two = "$" + singleProduct[2];
+				System.out.printf("%-20s%-20s%n", one, two );
 				indexes.add(i);
 				j += 1;
 			}
@@ -197,7 +203,7 @@ public class PucciApp {
 	}
 
 	public static void printFirstMenu() {
-		String[] firstMenu = { "Men \t\t Women", "1.Top \t\t 4.Top", "2.Bottoms \t 5.Bottoms", "3.Shoes \t 6.Shoes",
+		String[] firstMenu = { "Men \t\t Women", "1. Tops \t 4. Tops", "2. Bottoms \t 5. Bottoms", "3. Shoes \t 6. Shoes",
 				"\t 7.Checkout" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);

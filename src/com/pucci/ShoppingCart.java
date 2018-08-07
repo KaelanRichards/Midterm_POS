@@ -15,12 +15,14 @@ public class ShoppingCart {
 	
 
 	static ArrayList<Clothes> shoppingCart = new ArrayList<>();
-	// shoppingCart = null;
 
 	// This will create a shopping cart list and add clothes objects to it
-	public static ArrayList<Clothes> addItem(Clothes product) {
+	public static ArrayList<Clothes> addItem(Clothes product, int userQty) {
 
-		shoppingCart.add(product);
+			for (int i = 0; i < userQty; i++) {
+				shoppingCart.add(product);
+			}
+			
 		return shoppingCart;
 
 	}
@@ -36,16 +38,20 @@ public class ShoppingCart {
 	// by using a for loop
 	public static void viewCart() {
 		for (Clothes c : shoppingCart) {
-			System.out.println(c);
+			
+			String one = "$" + c.getPrice();
+			
+			System.out.printf("%-20s%-20s%n", c.getName(), one );
 		}
 	}
 		public static void viewEditCart() {
 			int i = 1;
 			for (Clothes c : shoppingCart) {
 				
-				System.out.print(i + ". ");
+				String one = "$" + c.getPrice();
 				
-				System.out.println(c);
+				System.out.printf("%-20s%-20s%n", c.getName(), one );
+				System.out.print(i + ". ");
 				i++;
 			}
 		
@@ -68,7 +74,6 @@ public class ShoppingCart {
 	}
 
 	// This method will return the sub total of your cart
-
 	public static double subTotalCart() {
 		String[] newProductList;
 
@@ -78,7 +83,6 @@ public class ShoppingCart {
 
 
 			double doublePrice = Double.parseDouble(newProductList[1]);
-			//System.out.println(Double.parseDouble(newProductList[1]));
 
 			total += doublePrice;
 		}
@@ -87,17 +91,9 @@ public class ShoppingCart {
 	}
 
 	// return receipt information
-	//
 	public static void checkoutCart(double subTotal, double grandTotal, String paymentMethod) {
 		DecimalFormat df = new DecimalFormat("0.00");
 		
-//		String sTotal;
-//		String gTotal;
-
-
-//		sTotal = Double.toString(subTotal);
-//		gTotal = Double.toString(grandTotal);
-//	
 		
 		System.out.println("\nYou paid with " + paymentMethod + "\n" + "Subtotal... $" +  df.format(subTotal) + "\n" +  "Grandtotal... $" + df.format(grandTotal));
 	}
