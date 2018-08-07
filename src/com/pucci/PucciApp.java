@@ -3,6 +3,7 @@ package com.pucci;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * @author CoderBoyKado
  * @author Brandon Spencer
@@ -25,6 +26,8 @@ public class PucciApp {
 		double grandTotal;
 		int userQty;
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		
+		System.out.println("\nWelcome to the Pucci Store\n");
 
 		do {
 
@@ -49,29 +52,30 @@ public class PucciApp {
 
 				System.out.println(); // Line space for readability
 
-				userProductChoice = Validator.getInt(scan, "Please select the number to add product "
-														 + "to your shopping cart: ", 0, indexes.size());
+				userProductChoice = Validator.getInt(scan,
+						"Please select the number to add product " + "to your shopping cart: ", 0, indexes.size());
+
 				if (userProductChoice == 0) {
 					cont = 2;
 					continue;
-				} else if (userProductChoice > 0 && userProductChoice < indexes.size()) {
+				} else if (userProductChoice <= indexes.size()) {
 					userQty = Validator.getInt(scan, "Quantity?");
-					putProductInCart(indexes, userProductChoice, userQty);				
+					putProductInCart(indexes, userProductChoice, userQty);
 				}
-				
 			}
+
+			// Cleaning the indexes array for the next products options
+			indexes.clear();
 
 			// View Shopping Cart
 			System.out.println("1. View shopping cart?");
 			System.out.println("2. Continue shopping? ");
 			cont = Validator.getInt(scan, " ");
+			
 			if (cont == 1) {
 				// View Shopping Cart
 				displayShoppingCart(df);
 
-				// cont2 = Validator.getString(scan, "Are you still shopping? (y/n)");
-				// cont = Validator.getString(scan, "Would you like to continue shopping (y/n):
-				// ");
 				System.out.println("1. Edit Shopping Cart?");
 				System.out.println("2. Continue shopping?");
 				System.out.println("3. Checkout");
@@ -93,12 +97,13 @@ public class PucciApp {
 						cont = 2;
 					}
 				}
-
 			}
 
 		} while (cont == 2);
+		
 		subTotal = (ShoppingCart.subTotalCart());
-		// payment info)
+		
+		// payment info
 		if (subTotal != 0) {
 			System.out.println("You purchased " + ShoppingCart.shoppingCart.size() + " items");
 			System.out.println("Your subtotal is: $" + df.format(subTotal));
@@ -117,9 +122,9 @@ public class PucciApp {
 				ShoppingCart.viewCart();
 				System.out.println();
 				ShoppingCart.checkoutCart(subTotal, grandTotal, userPay);
-
 			}
 		}
+
 		System.out.println("\nYour puchase today is so Pucci!");
 
 	}
@@ -153,8 +158,7 @@ public class PucciApp {
 		userPayChoice = scan.nextLine();
 
 		if (userPayChoice.equals("1")) {
-			System.out.println(
-					"Your change is $" + (df.format(PaymentValidation.usersChange(sumTotal, scan))));
+			System.out.println("Your change is $" + (df.format(PaymentValidation.usersChange(sumTotal, scan))));
 			userPayChoice = "Cash";
 		} else if (userPayChoice.equals("2")) {
 			PaymentValidation.isValidCheck(scan);
@@ -170,7 +174,7 @@ public class PucciApp {
 	public static void putProductInCart(ArrayList<Integer> indexes, int productChoice, int userQty) {
 
 		int i = indexes.get(productChoice - 1);
-		
+
 		ShoppingCart.addItem(FileMethods.readFromFile("Products.txt").get(i), userQty);
 	}
 
@@ -201,17 +205,16 @@ public class PucciApp {
 			if (singleProduct[0].equals(genderType)) {
 				String one = j + ". " + singleProduct[1];
 				String two = "$" + singleProduct[2];
-				System.out.printf("%-20s%-20s%n", one, two );
+				System.out.printf("%-20s%-20s%n", one, two);
 				indexes.add(i);
 				j += 1;
 			}
 		}
-
 	}
 
 	public static void printFirstMenu() {
-		String[] firstMenu = { "Men \t\t Women", "1. Tops \t 4. Tops", "2. Bottoms \t 5. Bottoms", "3. Shoes \t 6. Shoes",
-				"\t 7.Checkout" };
+		String[] firstMenu = { "Men \t\t Women", "1. Tops \t 4. Tops", "2. Bottoms \t 5. Bottoms",
+				"3. Shoes \t 6. Shoes", "\t 7.Checkout" };
 		for (int i = 0; i < firstMenu.length; i++) {
 			System.out.println(firstMenu[i]);
 

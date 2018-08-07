@@ -50,8 +50,8 @@ public class ShoppingCart {
 				
 				String one = "$" + c.getPrice();
 				
-				System.out.printf("%-20s%-20s%n", c.getName(), one );
 				System.out.print(i + ". ");
+				System.out.printf("%-20s%-20s%n", c.getName(), one );
 				i++;
 			}
 		
